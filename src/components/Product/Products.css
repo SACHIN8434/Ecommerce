@@ -1,0 +1,30 @@
+.paginationBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4vh;
+}
+    
+.page-item{
+    border: 1px solid black;
+    padding: 1vmax 1.5vmax;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.page-item:first-child{
+    border-radius: 5px 0 0 5px ;
+}
+.page-item:last-child{
+    border-radius: 0 5px 5px 0;
+}
+
+.pageItemActive{
+    background-color: tomato;
+}
