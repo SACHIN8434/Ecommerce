@@ -7,7 +7,13 @@ import Products from "./components/Product/Products"
 import { Routes, Route } from "react-router-dom"
 import Search from './components/Product/Search';
 import LoginForm from "./components/User/LoginForm";
-import signUpForm from "./components/User/SignUpForm";
+import SignUpForm from "./components/User/SignUpForm";
+import Profile from "./components/User/Profile";
+import UpdateProfile from "./components/User/UpdateProfile";
+import PrivateRoute from './components/User/PrivateRoute';
+import ForgotPassword from './components/User/ForgotPassword';
+import UpdatePassword from './components/User/UpdatePassword';
+import Cart from "./components/Cart/index"
 function App() {
   return (
 
@@ -15,14 +21,21 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />}></Route>
+
         <Route path="/product/:id" element={<ProductDetails/>}></Route>
         <Route path="/products" element={<Products/>}></Route>
+        <Route path="/cart" element={<Cart/>}></Route>
         
         <Route path="/products/:keyword" element={<Products/>}></Route>
 
         <Route path="/search" element={<Search/>}></Route>
         <Route path="/login" element={<LoginForm/>}></Route>
-        <Route path="/signup" element={<signUpForm/>}></Route>
+        <Route path="/signup" element={<SignUpForm/>}></Route>
+        <Route path="/forgotpassoword" element={<ForgotPassword/>}></Route>
+        <Route path="/update-password/:id" element={<UpdatePassword/>}></Route>
+       
+        <Route path="/account" element={<Profile/>}></Route>
+        <Route path="/updateprofile" element={<UpdateProfile/>}></Route>
       </Routes>
     </div>
   );

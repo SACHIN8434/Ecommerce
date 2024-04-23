@@ -5,9 +5,13 @@ import { useDispatch } from "react-redux"
 import Carousel from "react-material-ui-carousel"
 import ReactStars from "react-rating-stars-component"
 import ReviewCard from './ReviewCard';
+import {toast} from "react-hot-toast"
+import { addToCart } from '../../slices/cartSlice';
 
 
 const ProductDetails = () => {
+
+  const[quantity,setQuantity] = useState(1);
   const dispatch = useDispatch();
   const { id } = useParams();
   console.log("Product id is:", id);
@@ -21,6 +25,7 @@ const ProductDetails = () => {
       console.log(res);
       setProductData(res?.productDetails);
       setLoading(false);
+      toast.success("fetched product details successfully");
     }
     getProductDetailsfun();
   }, [id])
@@ -33,6 +38,24 @@ const ProductDetails = () => {
     isHalf: true,
     size: window.innerWidth < 600 ? 20 : 25,
     value: productData?.rating
+  }
+
+  const increateQuantity = ()=>{
+
+    if(productData.stock<=quantity) return;
+    setQuantity(quantity+1);
+  }
+
+  const decreaseQuantity = ()=>{
+    if(quantity<=1) return;
+    setQuantity(quantity-1);
+  }
+
+  const handleAddToCart = ()=>{
+    //admin add to course nahi kr skta add krna hai
+    console.log("jo productData bhej rhe h wo hai ye",productData);
+    productData.quantity = quantity;
+    dispatch(addToCart(productData));
   }
 
   return (
@@ -88,11 +111,11 @@ const ProductDetails = () => {
                   <h1 className="text-4xl">{`$${productData?.price} `}</h1>
                   <div className="flex md:flex-row justify-center items-center md:gap-x-4 flex-col gap-y-3">
                     <div className="flex flex-row justify-center items-center ">
-                      <button className="h-8 bg-slate-300 text-slate-800 w-10  text-4xl  text-center">-</button>
-                      <input value='1' type="number" className="w-[40px] bg-slate-200 text-2xl  text-slate-900 text-center"></input>
-                      <button className="h-8 bg-slate-300 text-slate-800 w-8  flex items-center text-4xl justify-center">+</button>
+                      <button className="h-8 bg-slate-300 text-slate-800 w-10  text-4xl  text-center" onClick={decreaseQuantity}>-</button>
+                      <input readOnly value={quantity} className="w-[40px] bg-slate-200 text-2xl  text-slate-900 text-center"/>
+                      <button className="h-8 bg-slate-300 text-slate-800 w-8  flex items-center text-4xl justify-center" onClick={increateQuantity}>+</button>
                     </div>{" "}
-                    <button className="bg-orange-600 rounded-full w-[100px] hover:transition-all duration-75 delay-75 ease-out h-8 hover:bg-orange-800">Add to Cart</button>
+                    <button className="bg-orange-600 rounded-full w-[100px] hover:transition-all duration-75 delay-75 ease-out h-8 hover:bg-orange-800" onClick={handleAddToCart}>Add to Cart</button>
                   </div>
                   <div className="w-full h-[1px] bg-slate-300 mt-5">
 
@@ -127,8 +150,8 @@ const ProductDetails = () => {
             productData?.reviews && productData?.reviews[0] ? (
               <div className="flex overflow-auto">
                 {
-                  productData?.reviews.map((review) => (
-                    <ReviewCard review={review} />
+                  productData?.reviews.map((review,index) => (
+                    <ReviewCard review={review} key={index}/>
                   ))
                 }
               </div>

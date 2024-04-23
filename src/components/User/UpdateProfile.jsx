@@ -1,35 +1,33 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { useState } from "react"
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
+import React,{useState} from 'react'
+import {updateProfile} from "../../services/operations/auth"
+import {useNavigate} from "react-router-dom"
+import { useDispatch,useSelector } from 'react-redux'
 
-import {login} from "../../services/operations/auth"
-import {Link} from "react-router-dom"
-
-
-
-const LoginForm = () => {
-  const dispatch = useDispatch();
+const UpdateProfile = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   })
-  
-  const { firstName,email, password } = formData
+  const {email, password } = formData
+  const {token} = useSelector((state)=>state.auth);
+
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault()
+    console.log(formData.email," ",formData.password)
+     dispatch(updateProfile(formData.password,formData.email,navigate,token));
+
+     
+  }
   const handleOnChange = (e) => {
     setFormData((prevData) => ({
       ...prevData,
       [e.target.name]: e.target.value,
     }))
   }
-  const handleOnSubmit = (e) => {
-    e.preventDefault()
-
-      dispatch(login(formData.email,formData.password,navigate));
-  }
-    const [showPassword, setShowPassword] = useState(false)
   return (
     <div>
       <form onSubmit={handleOnSubmit}>
@@ -53,43 +51,32 @@ const LoginForm = () => {
         </label>
         <label className="relative">
             <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
-              Create Password <sup className="text-pink-200">*</sup>
+              Enter name which you want to change <sup className="text-pink-200">*</sup>
             </p>
             <input
               required
-              type={showPassword ? "text" : "password"}
+              type="text"
               name="password"
               value={password}
               onChange={handleOnChange}
-              placeholder="Enter Password"
+              placeholder="Enter name"
               style={{
                 boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
               }}
               className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5"
             />
-            <span
-              onClick={() => setShowPassword((prev) => !prev)}
-              className="absolute right-3 top-[38px] z-[10] cursor-pointer"
-            >
-              {showPassword ? (
-                <AiOutlineEyeInvisible fontSize={24} fill="#AFB2BF" />
-              ) : (
-                <AiOutlineEye fontSize={24} fill="#AFB2BF" />
-              )}
-            </span>
+
           </label>
           <button
           type="submit"
           className="mt-6 rounded-[8px] bg-yellow-50 py-[8px] px-[12px] font-medium text-richblack-900"
         >
-          Login
+          Signup
         </button>
 
       </form>
-
-     <Link to={"/forgotpassoword"}>Forgot password</Link>
     </div>
   )
 }
 
-export default LoginForm
+export default UpdateProfile

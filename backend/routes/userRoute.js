@@ -11,7 +11,7 @@ const { isAuthenticatedUser,authorizeRoles} = require('../middleware/auth');
 router.post("/register", registerUser);
 router.post("/login",loginUser)
 router.post("/forgotPassword",forgotPassword)
-router.put("/resetPassword/:token",resetPassword)
+router.post("/resetPassword",resetPassword)
 router.get("/logout",logout)
 
 router.get("/getUserDetails",isAuthenticatedUser,getUserDetails)

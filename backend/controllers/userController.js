@@ -25,7 +25,10 @@ exports.registerUser = async(req,res,next)=>{
             }
         })
 
-        sendToken(user,201,res);
+        sendToken(user,200,res);
+
+
+        
     }catch(error){
 
         if(error.code ==  11000){
@@ -48,6 +51,7 @@ exports.registerUser = async(req,res,next)=>{
 
 exports.loginUser = async(req,res)=>{
     try{
+        console.log("comming to the login controller")
         const {email,password} = req.body;
 
         if(!email || !password){
@@ -128,7 +132,8 @@ exports.forgotPassword = async(req,res)=>{
         const resetPassword = user.getResetPasswordToken();
         await user.save({validateBeforeSave:false});
 
-        const resetPasswordUrl = `${req.protocol}://${req.get("host")}/api/v1/user/resetPassword/${resetPassword}`
+        const resetPasswordUrl = `http://localhost:3000/update-password/${resetPassword}`
+
 
         const message = `your password reset token is :- \n\n ${resetPasswordUrl} \n\n if you have not requested for this email please ignore  it`;
 
@@ -143,7 +148,6 @@ exports.forgotPassword = async(req,res)=>{
                 success:true,
                 message:"Email sent successfully"
             })
-
         }catch(error){
             user.resetPasswordToken = undefined;
             user.resetPasswordExpire = undefined;
@@ -169,7 +173,7 @@ exports.resetPassword = async(req,res)=>{
     try{
 
         //creating token hash
-        const resetPasswordToken = crypto.createHash("sha256").update(req.params.token).digest("hext");
+        const resetPasswordToken = crypto.createHash("sha256").update(req.body.token).digest("hext");
 
         const user = await User.findOne({
             resetPasswordToken,
@@ -217,6 +221,11 @@ exports.getUserDetails = async(req,res,next)=>{
             user,
         })
     }catch(error){
+        console.log("error occured while getching user details",error);
+        res.status(500).json({
+            success:false,
+            message:"error occured while getching user details",
+        })
 
     }
 }
@@ -267,6 +276,7 @@ exports.updatePassword = async(req,res)=>{
 
 exports.updateUserProfile = async(req,res)=>{
     try{
+        console.log("hii from updateUserProfile")
 
         const {name,email} = req.body;
         const newUserData = {
@@ -280,11 +290,16 @@ exports.updateUserProfile = async(req,res)=>{
 
         res.status(200).json({
             success:true,
-            message:"User updated successfully"
-
+            message:"User updated successfully",
+            user,
         })
-
     }catch(error){
+        console.log("updateuser failed with error",error);
+        res.status(500).json({
+            success:false,
+            message: `not updated successfully${error}`,
+            
+        })
 
     }
 }

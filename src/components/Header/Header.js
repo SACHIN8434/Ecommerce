@@ -2,12 +2,17 @@ import React, { useState } from 'react'
 import { FaSearch } from "react-icons/fa";
 import { FiShoppingBag } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
-import { AiOutlineMenu} from "react-icons/ai"
+import { AiOutlineMenu } from "react-icons/ai"
 import { RxCross1 } from "react-icons/rx";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import ProfileDropDown from "./ProfileDropDown"
 
 const Header = () => {
     const [open, setOpen] = useState(false);
+    const { token } = useSelector((state) => state.auth);
+    const navigate = useNavigate();
     return (
         <div>
 
@@ -21,8 +26,8 @@ const Header = () => {
                         <div className="flex flex-row gap-x-2">
                             <li className='hover:text-red-500 cursor-pointer'>Home</li>
                             <Link to={"/products"}>
-                                
-                            <li className='hover:text-red-500 cursor-pointer'>Product</li>
+
+                                <li className='hover:text-red-500 cursor-pointer'>Product</li>
                             </Link>
                         </div>
                         <div className="flex flex-row gap-x-2 cursor-pointer">
@@ -31,20 +36,31 @@ const Header = () => {
                         </div>
                     </ul>
                     <div className='flex flex-row gap-x-5'>
-                    
-                    <Link to={"/search"}>
 
-                        <FaSearch size={25} className='cursor-pointer'/>
-                    </Link>
-                  
+                        <Link to={"/search"}>
+
+                            <FaSearch size={25} className='cursor-pointer' />
+                        </Link>
+
+                        <Link to={"/cart"}>
+
                         <FiShoppingBag size={25} className='cursor-pointer' />
-                        <Link to={"/login"}>
+                        </Link>
 
-                       <div>Login</div>
-                        </Link>
-                        <Link to={"signup"}>
-                       <div>SignUp</div>
-                        </Link>
+
+                        {
+                            token === null && (<div><Link to={"/login"}>
+                                <div>Login</div>
+                            </Link>
+                                <Link to={"signup"}>
+                                    <div>SignUp</div>
+                                </Link></div>)
+                        }
+
+                        {
+                           <ProfileDropDown/>
+                        }
+
                     </div>
                 </nav>
             </div>
@@ -66,8 +82,8 @@ const Header = () => {
                 </div>
             </div>
             {
-            open && <div className="md:hidden bg-slate-800 text-slate-300">
-            <ul className="flex flex-col font-medium gap-y-5">
+                open && <div className="md:hidden bg-slate-800 text-slate-300">
+                    <ul className="flex flex-col font-medium gap-y-5">
                         <div className="flex flex-col gap-y-2">
                             <li className='hover:text-red-500 cursor-pointer'>Home</li>
                             <li className='hover:text-red-500 cursor-pointer'>Product</li>
@@ -77,9 +93,8 @@ const Header = () => {
                             <li className='hover:text-red-500 cursor-pointer'>About</li>
                         </div>
                     </ul>
-            </div>
+                </div>
             }
-
         </div>
     )
 }
