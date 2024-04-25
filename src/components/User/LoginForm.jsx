@@ -1,17 +1,31 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
+import React,{useEffect}from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useState } from "react"
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
 
 import {login} from "../../services/operations/auth"
 import {Link} from "react-router-dom"
+import { useLocation } from 'react-router-dom'
 
 
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  
+  const {token} = useSelector((state)=>state.auth);
+  const redirect = location.search?location.search.split("=")[1]:"/account";
+
+  useEffect(()=>{
+    if(token){
+      console.log("redirect is ",redirect);
+      navigate("/"+redirect);
+      console.log(location);
+    }
+  },[location,redirect,dispatch,token])
   const [formData, setFormData] = useState({
     email: "",
     password: "",

@@ -5,8 +5,8 @@ import ProductCart from './ProductCart';
 const Cart = () => {
 
     const cartData = useSelector((state)=>state.cart);
-    const products = cartData.cart;
-    console.log("products in cart index.jsx me",products);
+    // const products = ;
+    // console.log("products in cart index.jsx me",products);
    
 
   return (
@@ -21,10 +21,9 @@ const Cart = () => {
     </div>
     </div>
     {
-      products.map((item,index)=>(
+      cartData.cart.map((item,index)=>(
         <ProductCart product={item} key={index}/>
       ))
-
     }
 
     <div className='text-end mr-[13vw]'>Total Amount {cartData.total}</div>

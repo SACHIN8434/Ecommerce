@@ -14,6 +14,7 @@ import PrivateRoute from './components/User/PrivateRoute';
 import ForgotPassword from './components/User/ForgotPassword';
 import UpdatePassword from './components/User/UpdatePassword';
 import Cart from "./components/Cart/index"
+import Shipping from './components/Cart/Shipping';
 function App() {
   return (
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/product/:id" element={<ProductDetails/>}></Route>
         <Route path="/products" element={<Products/>}></Route>
         <Route path="/cart" element={<Cart/>}></Route>
+        <Route path="/shipping" element={<Shipping/>}></Route>
         
         <Route path="/products/:keyword" element={<Products/>}></Route>
 

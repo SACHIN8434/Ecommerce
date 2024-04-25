@@ -1,13 +1,25 @@
 import React from 'react'
 import { removeFromCart } from '../../slices/cartSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const ProductCart = ({product}) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {token} = useSelector((state)=>state.auth);
   console.log("product in product cart is",product);
   const remove = (productid)=>{
-    dispatch(removeFromCart(productid));
     console.log("product id is",productid);
+  }
+
+  const handleCheckOut = ()=>{
+    // if(token){
+    //   navigate("/account");
+    // }else{
+    //   navigate("/login");
+    // }
+    navigate("/login?redirect=shipping")
+    
   }
   return (
     <>
@@ -24,14 +36,12 @@ const ProductCart = ({product}) => {
           <p>Ratings {product.ratings}</p>
           </div>
         </div>
-
         <div>{product.quantity}</div>
-
         <div>
           {product.price}
         </div>
-        <p className='text-red-500' onClick={remove(product._id)}>Remove</p>
-
+        <p className='text-red-500 cursor-pointer' onClick={()=>dispatch(removeFromCart(product._id))}>Remove</p>
+        <p onClick={handleCheckOut}>CheckOut</p>
       </div>
     </>
   )
