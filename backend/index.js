@@ -15,8 +15,10 @@ const orderRoute = require("./routes/orderRoute");
 
 //importing database
 const connectDB = require("./config/database")
-dotenv.config({path:"config/config.env"})
+dotenv.config();
+const paymentRoute = require("./routes/payments");
 
+console.log( "RAZORPAY KEY IS",process.env.RAZORPAY_KEY);
 //database connect
 connectDB();
 
@@ -34,7 +36,8 @@ app.use(cookieParser());
 //routes
 app.use("/api/v1/product",productRoute);
 app.use("/api/v1/user",userRoute);
-app.use("/api/v1/order",orderRoute)
+app.use("/api/v1/order",orderRoute);
+app.use("/api/v1/payment",paymentRoute);
 
 
 //default route

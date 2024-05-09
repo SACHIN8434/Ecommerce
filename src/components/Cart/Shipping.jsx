@@ -5,11 +5,14 @@ import { useEffect, useState } from 'react';
 //function to set shippinginfo is
 import { saveShippingInfo } from "../../slices/cartSlice"
 import { GrHome } from "react-icons/gr";
+import CheckoutSteps from "./CheckoutSteps";
+import { useNavigate } from 'react-router-dom';
 
 
 
 
 const Shipping = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { shippingInfo } = useSelector((state) => state.cart);
     const [formData, setFormData] = useState({
@@ -29,16 +32,29 @@ const Shipping = () => {
             [event.target.name]: event.target.value
         }))
     }
-    useEffect(() => {
-        // dispatch(saveShippingInfo());
-        console.log(formData);
+    // useEffect(() => {
+    //     // dispatch(saveShippingInfo());
+    //     console.log(formData);
 
-    }, [formData])
+    // }, [formData]);
+
+    const submitHandler = (e)=>{
+        e.preventDefault();
+        if(phoneNo.length>10 || phoneNo.length<10){
+            //toast dikha do 
+            return;
+        }
+        dispatch(saveShippingInfo(formData));
+        navigate("/order/confirm")
+        console.log(formData);
+    }
     return (
         <Fragment>
             <div>Shipping</div>
 
-            <form>
+            <CheckoutSteps activeStep={0}></CheckoutSteps>
+
+            <form onSubmit={submitHandler} className="flex items-center flex-col flex-wrap gap-y-3">
 
                 <div>
                     <GrHome />
@@ -76,12 +92,12 @@ const Shipping = () => {
                         placeholder='Phone Number'
                         value={formData.phoneNumber}
                         onChange={handleOnChange}
-                        name='pinCode'
+                        name='phoneNo'
                         size={10}
                         required
                     />
                 </div>
-
+                
                 <div>
                     <select
                         required

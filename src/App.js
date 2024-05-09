@@ -4,6 +4,7 @@ import Home from "./components/Homepage/Home"
 import ProductDetails from './components/Product/ProductDetails';
 import Products from "./components/Product/Products"
 
+
 import { Routes, Route } from "react-router-dom"
 import Search from './components/Product/Search';
 import LoginForm from "./components/User/LoginForm";
@@ -15,6 +16,9 @@ import ForgotPassword from './components/User/ForgotPassword';
 import UpdatePassword from './components/User/UpdatePassword';
 import Cart from "./components/Cart/index"
 import Shipping from './components/Cart/Shipping';
+import ConfirmOrder from "./components/Cart/ConfirmOrder"
+import Payment from "./components/Cart/Payment"
+
 function App() {
   return (
 
@@ -27,6 +31,8 @@ function App() {
         <Route path="/products" element={<Products/>}></Route>
         <Route path="/cart" element={<Cart/>}></Route>
         <Route path="/shipping" element={<Shipping/>}></Route>
+        <Route path="/order/confirm" element={<ConfirmOrder/>}></Route>
+        <Route path="/process/payment" element={<Payment/>}></Route>
         
         <Route path="/products/:keyword" element={<Products/>}></Route>
 

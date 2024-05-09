@@ -14,6 +14,7 @@ exports.isAuthenticatedUser = async (req, res, next) => {
         const decodedData = jwt.verify(token,process.env.JWT_SECRET);
         // console.log("decoded data is:",decodedData);
         req.user = await User.findById(decodedData.id);
+        console.log("is authenticated se nikal chuka hai");
         next();
     } catch (error) {
         return res.status(401).json({
