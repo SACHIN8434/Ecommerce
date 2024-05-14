@@ -2,6 +2,8 @@ const {instance} = require("../config/razorpay");
 const UserModel = require("../models/UserModel");
 const ProductModel = require("../models/ProductModel");
 
+const crypto = require("crypto")
+
 const mongoose = require("mongoose");
 
 
@@ -69,5 +71,40 @@ exports.capturePayment = async (req,res)=>{
 }
 
 exports.verifyPayment = async(req,res)=>{
+    console.log("we are enter into verifyPayment api in backend");
+    console.log("req.body in verify payment is",req.body);
+
+    const razorpay_order_id = req.body?.bodyData?.razorpay_order_id;
+    const razorpay_payment_id = req.body?.bodyData?.razorpay_payment_id;
+    const razorpay_signature = req.body?.bodyData?.razorpay_signature;
+    const userId = req.user._id;
+    console.log("raz._order_id,raz._payment_id,raz._signature and userId is",razorpay_order_id,razorpay_payment_id,razorpay_signature,userId)
+
+    if(!razorpay_order_id ||
+        !razorpay_payment_id ||
+        !razorpay_signature  || !userId) {
+            return res.status(200).json({success:false, message:"all fields are required"});
+    }
+
+    try{
+        let body = razorpay_order_id + "|" + razorpay_payment_id;
+    const expectedSignature = crypto.createHmac("sha256",process.env.RAZORPAY_SECRET).update(body.toString()).digest("hex");
+
+    if(expectedSignature === razorpay_signature){
+        return res.status(200).json({
+            success:true,
+            message:"expectedSignature !== razorpay_signature",
+        })
+    }
+
+    }catch(error){
+        console.log("error occured in veriry payment api",error);
+        return res.status(500).json({
+            success:false,
+            message:"verify payment errror occurred",
+    
+        })
+
+    }
 
 }

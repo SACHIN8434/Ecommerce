@@ -1,5 +1,8 @@
 import {toast} from "react-hot-toast";
 import {apiConnector} from "../apiConnector";
+import { resetCart } from "../../slices/cartSlice"
+const rzpLogo = "https://cdn.iconscout.com/icon/free/png-256/free-razorpay-1649771-1399875.png?f=webp"
+
 
 //load the razorpay sdk from the cdn
 function loadScript(src){
@@ -26,6 +29,9 @@ export async function buyProduct(
     totalAmount
 ){
     console.log("token is",token);
+    console.log("products is",products);
+    console.log("user details is",user_details);
+    console.log("totalamount is",totalAmount);
     const toastId = toast.loading("Loading");
     try{
         console.log("We are enter into the buyProduct function");
@@ -54,13 +60,62 @@ export async function buyProduct(
 
             console.log("Captuture payment response is", orderResponse);
         }
-        
-        toast.dismiss(toastId);
+
+        toast.success("payment captured successfully");
+        console.log("order id is",orderResponse.data.data.id)
+        console.log("razorpay key is",process.env.RAZORPAY_KEY)
 
 
-
+        //opening the razorpay sdk;
+        const options = {
+            key:"rzp_test_F35UfTSTDothFQ",
+            currency:orderResponse.data.data.currency,
+            amount:`${orderResponse.data.data.amount}`,
+            order_id:orderResponse.data.data.id,
+            name:"ecommerce",
+            description:"Thank You for purchasing the product",
+            image:rzpLogo,
+            prefill:{
+                name:`${user_details.name}`,
+                email:`${user_details.email}`,
+            },
+            handler:function(response){
+                verifyPayment({...response,products},token,navigate,dispatch)
+                console.log("we are successfully reached to the verify payment");
+            },
+        }
+        const paymentObject = new window.Razorpay(options);
+        paymentObject.open();
+        console.log("we succussfully till paymentObject.open");
+        paymentObject.on("payment.failed",function(response){
+            toast.error("oops,payment failed")
+            console.log("error occured in paymentObject.on method",response.error);
+        })
     }catch(e){
-        console.log("Error occuered in buyProduct function");
+        console.log("PAYMENT API ERROR......",e);
+        toast.error("could not make payment");
 
     }
+    toast.dismiss(toastId);
+}
+
+async function verifyPayment(bodyData,token,navigate,dispatch){
+    console.log("we are entre into the verify payment and body data is",bodyData);
+    const toastId = toast.loading("verifying Payment...");
+    try{
+        const response = await apiConnector("POST", "http://localhost:4000/api/v1/payment/verifypayment",{bodyData,token})
+        console.log("response from verify payment api is",response);
+
+        if(!response.data.success){
+            throw new Error(response.data.message);
+        }
+        toast.success("payment succussful.");
+        navigate("/");
+        // dispatch(resetCart);
+
+    }catch(error){
+        console.log("error in verify payment api",error);
+        toast.error("could Not verify payment");
+    }
+    toast.dismiss(toastId);
 }
