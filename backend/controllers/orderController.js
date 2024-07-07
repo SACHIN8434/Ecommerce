@@ -5,8 +5,9 @@ const Product = require("../models/ProductModel");
 //create new order
 exports.createNewOrder = async(req,res,next)=>{
     try{
-        const {shippingInfo,orderItems,paymentInfo,itemsPrice,taxPrice,shippingPrice,totalPrice} = req.body;
-
+        console.log("Enter into the createNewOrder",req.body.order);
+        const {shippingInfo,orderItems,paymentInfo,itemsPrice,taxPrice,shippingPrice,totalPrice} = req.body.order;
+        
         const order = await Order.create({
             shippingInfo,
             orderItems,

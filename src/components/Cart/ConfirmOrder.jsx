@@ -11,9 +11,10 @@ const ConfirmOrder = () => {
   const dispatch = useDispatch();
   const {token} = useSelector((state)=>state.auth);
   const { shippingInfo, cart, total } = useSelector((state) => state.cart);
+  console.log("cart in confirm order is",cart);
   const { user } = useSelector((state) => state.profile);
   console.log(user);
-  console.log(shippingInfo, cart);
+  console.log("shipping info and cart itms is",shippingInfo, cart);
   let shippingCharges = 0;
   let totalAmount = 0;
   let subTotal = 0;
@@ -38,9 +39,20 @@ const ConfirmOrder = () => {
 
   }
 
+
+
   const handleBuyProduct = ()=>{
     if(token){
-      buyProduct(token,cart,user,navigate,dispatch,totalAmount);
+      const order = {
+        totalPrice: totalAmount,
+        taxPrice:tax,
+        shippingPrice:shippingCharges,
+        itemPrice:subTotal,
+        orderItems:cart,
+        shippingInfo,
+      }
+      buyProduct(token,cart,user,navigate,dispatch,totalAmount,order);
+        //create order into the database after payment is successful
       return;
     }
 
@@ -94,8 +106,6 @@ const ConfirmOrder = () => {
         <p>Total : <span>{totalAmount = tax + totalAmount}</span></p>
        <button onClick={handleBuyProduct}>Proceed to pay</button>
       </div>
-
-
     </Fragment>
   )
 }

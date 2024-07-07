@@ -1,6 +1,8 @@
 import {toast} from "react-hot-toast";
 import {apiConnector} from "../apiConnector";
+import {createOrder} from "./order";
 import { resetCart } from "../../slices/cartSlice"
+import { useDispatch, useSelector } from 'react-redux'
 const rzpLogo = "https://cdn.iconscout.com/icon/free/png-256/free-razorpay-1649771-1399875.png?f=webp"
 
 
@@ -26,12 +28,17 @@ export async function buyProduct(
     user_details,
     navigate,
     dispatch,
-    totalAmount
+    totalAmount,
+    order
 ){
+    
     console.log("token is",token);
     console.log("products is",products);
     console.log("user details is",user_details);
     console.log("totalamount is",totalAmount);
+    console.log("order is",order);
+    
+    console.log("updated order is",order);
     const toastId = toast.loading("Loading");
     try{
         console.log("We are enter into the buyProduct function");
@@ -80,7 +87,7 @@ export async function buyProduct(
                 email:`${user_details.email}`,
             },
             handler:function(response){
-                verifyPayment({...response,products},token,navigate,dispatch)
+                verifyPayment({...response,products},token,navigate,dispatch,order)
                 console.log("we are successfully reached to the verify payment");
             },
         }
@@ -99,7 +106,7 @@ export async function buyProduct(
     toast.dismiss(toastId);
 }
 
-async function verifyPayment(bodyData,token,navigate,dispatch){
+async function verifyPayment(bodyData,token,navigate,dispatch,order){
     console.log("we are entre into the verify payment and body data is",bodyData);
     const toastId = toast.loading("verifying Payment...");
     try{
@@ -109,8 +116,20 @@ async function verifyPayment(bodyData,token,navigate,dispatch){
         if(!response.data.success){
             throw new Error(response.data.message);
         }
+
+        //yha paymentId and paymentStatus aayega response me
+
+
         toast.success("payment succussful.");
-        navigate("/");
+        order.paymentInfo = {
+            id:response.data.data.paymentId,
+            status:response.data.data.paymentStatus,
+        }
+        
+        if(response.data.success){
+            toast.success("payment verify successfully");
+            await createOrder(order,token,navigate);
+        }
         // dispatch(resetCart);
 
     }catch(error){

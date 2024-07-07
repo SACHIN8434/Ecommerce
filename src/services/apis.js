@@ -18,3 +18,7 @@ export const authEndpoints={
   RESETPASSTOKEN_API: BASE_URL + "/user/resetPassword",
   RESETPASSWORD_API: BASE_URL + "/user/resetPassword"
 }
+
+export const orderEndPoints = {
+  CREATE_ORDER:BASE_URL + "/order/createOrder",
+}

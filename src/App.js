@@ -18,6 +18,7 @@ import Cart from "./components/Cart/index"
 import Shipping from './components/Cart/Shipping';
 import ConfirmOrder from "./components/Cart/ConfirmOrder"
 import Payment from "./components/Cart/Payment"
+import OrderSuccess from './components/Cart/OrderSuccess';
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
        
         <Route path="/account" element={<Profile/>}></Route>
         <Route path="/updateprofile" element={<UpdateProfile/>}></Route>
+        <Route path="/orders" element={<OrderSuccess/>}></Route>
       </Routes>
     </div>
   );

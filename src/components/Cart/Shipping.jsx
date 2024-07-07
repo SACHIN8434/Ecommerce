@@ -24,6 +24,7 @@ const Shipping = () => {
         country: "",
     })
 
+
     const { address, city, state, pinCode, phoneNo, country } = formData;
 
     const handleOnChange = (event) => {

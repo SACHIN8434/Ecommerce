@@ -5,7 +5,6 @@ import CheckoutSteps from "./CheckoutSteps";
 const Payment = () => {
   return (
     <CheckoutSteps activeStep={2}></CheckoutSteps>
-
   )
 }
 
