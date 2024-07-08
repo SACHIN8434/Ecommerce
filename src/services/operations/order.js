@@ -9,13 +9,11 @@ export const createOrder = async (order,token,navigate)=>{
             token,
         })
         console.log("order creation response is",response);
-
         if(response.status === "success"){
             alert("order is created successfully");
         }
         navigate("/orders");
     }catch(err){
         alert("order is not created successfully")
-
     }
 }
