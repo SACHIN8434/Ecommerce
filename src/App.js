@@ -19,6 +19,8 @@ import Shipping from './components/Cart/Shipping';
 import ConfirmOrder from "./components/Cart/ConfirmOrder"
 import Payment from "./components/Cart/Payment"
 import OrderSuccess from './components/Cart/OrderSuccess';
+import MyOrders from './components/Order/MyOrders';
+import OrderDetails from './components/Order/OrderDetails'
 
 function App() {
   return (
@@ -28,27 +30,30 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
 
-        <Route path="/product/:id" element={<ProductDetails/>}></Route>
-        <Route path="/products" element={<Products/>}></Route>
-        <Route path="/cart" element={<Cart/>}></Route>
-        <Route path="/shipping" element={<Shipping/>}></Route>
-        <Route path="/order/confirm" element={<ConfirmOrder/>}></Route>
-        <Route path="/process/payment" element={<Payment/>}></Route>
-        
-        <Route path="/products/:keyword" element={<Products/>}></Route>
+        <Route path="/product/:id" element={<ProductDetails />}></Route>
+        <Route path="/products" element={<Products />}></Route>
+        <Route path="/cart" element={<Cart />}></Route>
+        <Route path="/shipping" element={<Shipping />}></Route>
+        <Route path="/process/payment" element={<Payment />}></Route>
 
-        <Route path="/search" element={<Search/>}></Route>
-        <Route path="/login" element={<LoginForm/>}></Route>
-        <Route path="/signup" element={<SignUpForm/>}></Route>
-        <Route path="/forgotpassoword" element={<ForgotPassword/>}></Route>
-        <Route path="/update-password/:id" element={<UpdatePassword/>}></Route>
-       
-        <Route path="/account" element={<Profile/>}></Route>
-        <Route path="/updateprofile" element={<UpdateProfile/>}></Route>
-        <Route path="/orders" element={<OrderSuccess/>}></Route>
+        <Route path="/products/:keyword" element={<Products />}></Route>
+
+        <Route path="/search" element={<Search />}></Route>
+        <Route path="/login" element={<LoginForm />}></Route>
+        <Route path="/signup" element={<SignUpForm />}></Route>
+        <Route path="/forgotpassoword" element={<ForgotPassword />}></Route>
+        <Route path="/update-password/:id" element={<UpdatePassword />}></Route>
+
+        <Route path="/account" element={<Profile />}></Route>
+        <Route path="/updateprofile" element={<UpdateProfile />}></Route>
+        <Route path="/success" element={<OrderSuccess />}></Route>
+        <Route path="/orders" element={<MyOrders />}></Route>
+          <Route path="/order/confirm" element={<ConfirmOrder />}></Route>
+          <Route path="/orders/:id" element={<OrderDetails />}></Route>
+        
       </Routes>
     </div>
   );
 }
- 
+
 export default App;

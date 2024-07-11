@@ -40,7 +40,7 @@ exports.createNewOrder = async(req,res,next)=>{
 //get single order
 exports.getSingleOrder = async(req,res)=>{
     try{
-
+        console.log("geSingleOrder me aa chuke hai");
         const order = await Order.findById(req.params.id).populate("user");
 
         if(!order){
@@ -51,7 +51,7 @@ exports.getSingleOrder = async(req,res)=>{
         }
 
         res.status(200).json({
-            success:false,
+            success:true,
             message:"order fetched successfuly",
             order,
         })
@@ -69,11 +69,12 @@ exports.getSingleOrder = async(req,res)=>{
 //get logged in user orders
 exports.myOrders = async(req,res)=>{
     try{
+        console.log("comming in my orders");
 
         const orders = await Order.find({user:req.user._id})
 
         res.status(200).json({
-            success:false,
+            status:"success",
             orders,
             message:"orders fetched successfuly"
         })
@@ -81,7 +82,7 @@ exports.myOrders = async(req,res)=>{
     }catch(error){
         console.log("Error arises in fetching order details",error);
         res.status(500).json({
-            success: false,
+            status: "false",
             message:"Error arises in fetching order details",
             
         })

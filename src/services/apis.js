@@ -21,4 +21,6 @@ export const authEndpoints={
 
 export const orderEndPoints = {
   CREATE_ORDER:BASE_URL + "/order/createOrder",
+  MY_ORDER:BASE_URL + "/order/myOrders",
+  GET_SINGLE_ORDER_DETAILS:BASE_URL + "/order/getSingleOrder",
 }

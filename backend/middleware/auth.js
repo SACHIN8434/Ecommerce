@@ -5,7 +5,8 @@ exports.isAuthenticatedUser = async (req, res, next) => {
     try {
         console.log("isAuthenticatedUser me aa gye hai")
         const { token } = req.body;
-        if (!token) {
+
+        if (!token || token === undefined) {
             return res.status(401).json({
                 success: false,
                 message: "please login to access this resource",

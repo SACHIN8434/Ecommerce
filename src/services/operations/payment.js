@@ -128,9 +128,8 @@ async function verifyPayment(bodyData,token,navigate,dispatch,order){
         
         if(response.data.success){
             toast.success("payment verify successfully");
-            await createOrder(order,token,navigate);
+            await createOrder(order,token,navigate,dispatch);
         }
-        // dispatch(resetCart);
 
     }catch(error){
         console.log("error in verify payment api",error);

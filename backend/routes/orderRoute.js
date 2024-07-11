@@ -10,9 +10,9 @@ const { createNewOrder, getSingleOrder, myOrders, getAllOrders, updateOrder, del
 
 router.post("/createOrder",isAuthenticatedUser,createNewOrder)
 
-router.get("/getSingleOrder/:id",isAuthenticatedUser,getSingleOrder)
+router.post("/getSingleOrder/:id",isAuthenticatedUser,getSingleOrder)
 
-router.get("/myOrders",isAuthenticatedUser,myOrders)
+router.post("/myOrders",isAuthenticatedUser,myOrders)
 module.exports = router;
 
 
