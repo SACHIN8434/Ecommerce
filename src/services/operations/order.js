@@ -56,6 +56,7 @@ export const getSingleOrderDetails = async (token,id,dispatch) => {
             console.log("heelo");
             dispatch(setSingleOrderDetails(response.data.order))
         }
+        return true;
     } catch (error) {
         alert("Error in myOrders api");
         return false;

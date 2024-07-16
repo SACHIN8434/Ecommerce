@@ -1,8 +1,10 @@
 import { productEndpoints } from "../apis";
 
 import {apiConnector} from "../apiConnector";
+import {newReviewReducer} from "../../slices/productSlice"
+import { useDispatch } from "react-redux";
 
-const {GET_PRODUCT_API,GET_PRODUCT_DETAILS_API} = productEndpoints;
+const {GET_PRODUCT_API,GET_PRODUCT_DETAILS_API,NEW_REVIEW} = productEndpoints;
 
 export const getAllProducts = async(keyword="",currentPage=1,price=[0,25000],category)=>{
     let result = [];
@@ -30,6 +32,8 @@ export const getAllProducts = async(keyword="",currentPage=1,price=[0,25000],cat
     return result;
 }
 
+
+//get product details
 export const getProductDetails = async(productId)=>{
     let result;
     try{
@@ -40,4 +44,25 @@ export const getProductDetails = async(productId)=>{
         console.log("GET_PRODUCT_DETAILS_API_ERROR............", error)
     }
     return result;
+}
+
+export function newReview (obj,token){
+    return async(dispatch)=>{
+        try{
+            console.log("comming in new Review ");
+            const response = await apiConnector("PUT",NEW_REVIEW,{
+                token,
+                obj,
+            })
+            console.log("response from creating new review",response);
+            if(response.data.success === true){
+                dispatch(newReviewReducer(response.data.message));
+            }
+    
+        }catch(e){
+            alert("error in new review creation");
+    
+        }
+    }
+    
 }

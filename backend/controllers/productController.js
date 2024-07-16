@@ -178,7 +178,7 @@ exports.getProductDetails = async(req,res,next)=>{
 //create a review and update a review
 exports.createProductReview = async(req,res)=>{
     try{
-        const { rating, comment, productId } = req.body;
+        const { rating, comment, productId } = req.body.obj;
 
         const review = {
           user: req.user._id,
@@ -191,7 +191,7 @@ exports.createProductReview = async(req,res)=>{
         const product = await Product.findById(productId);
         console.log("review",review);
         console.log("product",product);
-        console.log("req.user._id",req.user._id)
+        console.log("req.user._id is",req.user._id)
 
         const isReviewed = product.reviews.find((rev) => rev.user.toString() === req.user._id.toString());
        console.log("isReviewed",isReviewed);

@@ -1,22 +1,37 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from "react-router-dom"
-import { getProductDetails } from '../../services/operations/product';
-import { useDispatch } from "react-redux"
+import { getProductDetails, newReview } from '../../services/operations/product';
+import { useDispatch, useSelector } from "react-redux"
 import Carousel from "react-material-ui-carousel"
-import ReactStars from "react-rating-stars-component"
 import ReviewCard from './ReviewCard';
-import {toast} from "react-hot-toast"
+import {toast, useToasterStore} from "react-hot-toast"
 import { addToCart } from '../../slices/cartSlice';
 
+
+import {
+  Dialog,
+  DiaogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+  DialogActions,
+} from '@mui/material'
+import {Rating} from "@mui/material"
+import { SiRedhatopenshift } from 'react-icons/si';
 
 const ProductDetails = () => {
 
   const[quantity,setQuantity] = useState(1);
+  const [rating,setRating] = useState(0);
+  const [comment,setComment] = useState("");
+  const [open,setOpen] = useState(false);
   const dispatch = useDispatch();
   const { id } = useParams();
   console.log("Product id is:", id);
   const [productData, setProductData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const {token} = useSelector((state)=>state.auth);
+  // const {newReview} = useSelector((state)=>state.product);
   useEffect(() => {
     const getProductDetailsfun = async () => {
       setLoading(true);
@@ -28,16 +43,16 @@ const ProductDetails = () => {
       toast.success("fetched product details successfully");
     }
     getProductDetailsfun();
-  }, [id])
+  }, [id,dispatch,toast.success])
   console.log("productData is", productData);
 
   const options = {
-    edit: false,
-    color: "rgba(20,20,20,0.1)",
-    activeColor: "tomato",
-    isHalf: true,
-    size: window.innerWidth < 600 ? 20 : 25,
-    value: productData?.rating
+    
+    
+    size: "large",
+    value: productData?.ratings,
+    readOnly:true,
+    precision:0.5
   }
 
   const increateQuantity = ()=>{
@@ -58,10 +73,23 @@ const ProductDetails = () => {
     dispatch(addToCart(productData));
   }
 
+  const submitReviewToggle = ()=>{
+    open ? setOpen(false) :setOpen(true);
+  }
+
+  const reviewSubmitHandler = ()=>{
+
+    const obj = {
+      "productId":id,
+      "comment":comment,
+      "rating":rating,
+    }
+    dispatch(newReview(obj,token,dispatch))
+    setOpen(false);
+    toast.success("Review added successfully")
+
+  }
   return (
-
-
-
     <>
 
       {loading ? (<div>Loding...</div>) : (
@@ -99,7 +127,7 @@ const ProductDetails = () => {
 
                 </div>
                 <div className="flex md:flex-row items-center justify-center text-slate-300 flex-col text-center">
-                  <ReactStars {...options} />
+                  <Rating {...options} />
                   <span className='text-start'>({`${productData?.noOfReviews}Reviews`})</span>
 
                 </div>
@@ -115,7 +143,7 @@ const ProductDetails = () => {
                       <input readOnly value={quantity} className="w-[40px] bg-slate-200 text-2xl  text-slate-900 text-center"/>
                       <button className="h-8 bg-slate-300 text-slate-800 w-8  flex items-center text-4xl justify-center" onClick={increateQuantity}>+</button>
                     </div>{" "}
-                    <button className="bg-orange-600 rounded-full w-[100px] hover:transition-all duration-75 delay-75 ease-out h-8 hover:bg-orange-800" onClick={handleAddToCart}>Add to Cart</button>
+                    <button disabled={productData?.stock <1?true:false} className="bg-orange-600 rounded-full w-[100px] hover:transition-all duration-75 delay-75 ease-out h-8 hover:bg-orange-800" onClick={handleAddToCart}>Add to Cart</button>
                   </div>
                   <div className="w-full h-[1px] bg-slate-300 mt-5">
 
@@ -133,7 +161,7 @@ const ProductDetails = () => {
                   <p className="md:text-4xl text-center">Description</p>
                   <p >{productData?.description}</p>
                 </div>
-                <button className="bg-orange-600 rounded-full w-[150px] hover:transition-all  ease-out h-8 hover:scale-105 transition-all duration-75 delay-75 ">Submit Review</button>
+                <button onClick={submitReviewToggle} className="bg-orange-600 rounded-full w-[150px] hover:transition-all  ease-out h-8 hover:scale-105 transition-all duration-75 delay-75 ">Submit Review</button>
               </div>
             </div>
 
@@ -141,6 +169,33 @@ const ProductDetails = () => {
           </div>
           <h3 className="text-center mt-8 text-4xl">Reviews</h3>
           <div className='flex items-center justify-center'>
+
+          <Dialog
+          aria-labelledby='simple-dialog-title'
+          open={open}
+          onClose={submitReviewToggle}
+          >
+
+          <DialogTitle>Submit Review</DialogTitle>
+          <DialogContent className='flex flex-col' >
+          <Rating
+            onChange={(e)=>setRating(e.target.value)}
+            value={rating}
+            size='large'
+          />
+          <textarea
+          cols='30'
+          rows='5'
+          value={comment}
+          onChange={(e)=>setComment(e.target.value)}
+          className='border 1px solid green-500 p-5 text-black'
+          ></textarea>
+          </DialogContent>  
+          <DialogActions>
+            <Button onClick={submitReviewToggle} className='text-red-700'>Cancel</Button>
+            <Button onClick={reviewSubmitHandler}>Submit</Button>
+          </DialogActions>      
+           </Dialog>
 
             <div className="w-[30vw] h-[1px] bg-slate-300 mt-2">
             </div>
