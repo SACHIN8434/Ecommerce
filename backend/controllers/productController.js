@@ -51,6 +51,7 @@ exports.getAllProducts = async(req,res,next)=>{
         let filteredProductsCount = products.length;
 
         apiFeature.pagination(resultPerPage);
+        //  products = await apiFeature.query;
 
         res.status(200).json({
             success:true,
@@ -66,6 +67,27 @@ exports.getAllProducts = async(req,res,next)=>{
         res.status(500).json({
             success:false,
             message:"error occured fetching all product"
+        })
+
+    }
+}
+
+//get product (Admin)
+exports.getAdminProducts = async(req,res,next)=>{
+    try{
+        const products = await Product.find();
+
+        res.status(200).json({
+            success:true,
+            message:"products are fetched successfully",
+            products,
+            
+        })
+    }catch(err){
+        console.log("Error while fetching all products",err);
+        res.status(500).json({
+            success:false,
+            message:"error occured fetching all products"
         })
 
     }

@@ -35,7 +35,7 @@ export default function ProfileDropDown() {
           ref={ref}
         >
         {
-            user.role==="admin" && (<Link to="/dashboard" onClick={() => setOpen(false)}>
+            user.role==="admin" && (<Link to="/admin/dashboard" onClick={() => setOpen(false)}>
             <div className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25">
               <VscDashboard className="text-lg" />
               Dashboard

@@ -3,12 +3,13 @@ const router = express.Router();
 
 
 //import the productController functions
-const {getAllProducts,createProduct,updateProduct,deleteProduct,getProductDetails, createProductReview, getProductReviews, deleteProductReview} = require("../controllers/productController");
+const {getAllProducts,createProduct,updateProduct,deleteProduct,getProductDetails, createProductReview, getProductReviews, deleteProductReview, getAdminProducts} = require("../controllers/productController");
 const { isAuthenticatedUser,authorizeRoles} = require('../middleware/auth');
 
 
 //routes
 router.get('/getAllProducts',getAllProducts)
+router.post('/admin/products',isAuthenticatedUser,authorizeRoles("admin"),getAdminProducts)
 router.post("/admin/createProduct",isAuthenticatedUser,authorizeRoles("admin"),createProduct);
 router.put("/admin/updateProduct/:id",isAuthenticatedUser,authorizeRoles("admin"),updateProduct);
 router.delete("/admin/deleteProduct/:id",isAuthenticatedUser,authorizeRoles("admin"),deleteProduct);

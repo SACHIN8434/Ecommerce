@@ -9,7 +9,8 @@ export const endpoints = {
 export const productEndpoints = {
   GET_PRODUCT_API: BASE_URL + "/product/getAllProducts",
   GET_PRODUCT_DETAILS_API:BASE_URL+"/product/getProductDetails",
-  NEW_REVIEW : BASE_URL + "/product/review"
+  NEW_REVIEW : BASE_URL + "/product/review",
+  ADMIN_PRODUCTS: BASE_URL + "/product/admin/products",
 }
 
 export const authEndpoints={

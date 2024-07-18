@@ -26,15 +26,12 @@ const Products = () => {
   console.log("this is keyword ", keyword);
 
   const [loading, setLoading] = useState(false);
-  const [resultPerPage,setresultPerPage] = useState(null);
+  const [resultPerPage,setresultPerPage] = useState(0);
   const [currentPage,setCurrentPage] = useState(1);
   const [productsCount,setProductsCount] = useState(0);
   const [price,setPrice] = useState([0,25000])
   const [filterProductCount,setFilterProductCount] = useState(null);
   const[category,setCategory] = useState("");
-
-
-  
   const dispatch = useDispatch();
 
 

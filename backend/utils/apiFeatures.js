@@ -43,7 +43,7 @@ class ApiFeatures{
 
         //Removing some fields for category
         const removeFields = ["keyword","page","limit"];
-        removeFields.forEach(key=>delete queryCopy[key]);
+        removeFields.forEach((key)=>delete queryCopy[key]);
 
 
         //Filter For Price and raitng
