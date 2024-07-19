@@ -112,7 +112,7 @@ const Dashboard = () => {
                 className="text-black bg-yellow-200 h-[100px] w-[100px] flex flex-col items-center justify-center rounded-full"
               >
                 <p>Product</p>
-                <p>50</p>
+                <p>{adminProducts && adminProducts.length}</p>
               </Link>
               <Link
                 to={"/admin/orders"}
