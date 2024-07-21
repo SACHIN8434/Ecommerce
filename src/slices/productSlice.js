@@ -5,6 +5,7 @@ const initialState = {
     loading:false,
     newReview:null,
     adminProducts:null,
+    newProduct:null,
 }
 
 const productSlice = createSlice({
@@ -22,13 +23,16 @@ const productSlice = createSlice({
         },
         AdminProducts:(state,action)=>{
             state.adminProducts = action.payload;
+        },
+        newProductReducer:(state,action)=>{
+            state.newProduct = action.payload;
         }
     }
     
 })
 
 export const {
-    setProduct,newReviewReducer,AdminProducts
+    setProduct,newReviewReducer,AdminProducts,newProductReducer
 } = productSlice.actions
 
 export default productSlice.reducer;

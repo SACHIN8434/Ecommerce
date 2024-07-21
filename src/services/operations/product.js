@@ -5,8 +5,10 @@ import { newReviewReducer } from "../../slices/productSlice";
 import { useDispatch } from "react-redux";
 import { AdminProducts } from "../../slices/productSlice";
 import { TurnedIn } from "@mui/icons-material";
+import {toast} from "react-hot-toast"
+import { newProductReducer } from "../../slices/productSlice";
 
-const { GET_PRODUCT_API, GET_PRODUCT_DETAILS_API, NEW_REVIEW, ADMIN_PRODUCTS } =
+const { GET_PRODUCT_API, GET_PRODUCT_DETAILS_API, NEW_REVIEW, ADMIN_PRODUCTS,CREATE_NEW_PRODUCT } =
   productEndpoints;
 
 export const getAllProducts = async (
@@ -89,3 +91,26 @@ export async function getAdminProducts(token,dispatch) {
     return true;
   
 }
+
+// create new product 
+export const createProduct = (productData,token)=>{
+
+return async (dispatch)=>{
+
+  try{
+
+    console.log("productData is",productData);
+    // const response = await apiConnector("POST",CREATE_NEW_PRODUCT,{token,productData});
+    // console.log("response from createNewProduct Api",response);
+    
+    // if(response.data.success === true){
+    //   toast.success("Product is Created Successfully");
+    //   dispatch(newProductReducer(response.data.product));
+    // }
+  }catch(err){
+    toast.error("Error creating product");
+  }
+  
+}
+}
+

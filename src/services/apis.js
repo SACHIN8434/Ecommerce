@@ -11,6 +11,7 @@ export const productEndpoints = {
   GET_PRODUCT_DETAILS_API:BASE_URL+"/product/getProductDetails",
   NEW_REVIEW : BASE_URL + "/product/review",
   ADMIN_PRODUCTS: BASE_URL + "/product/admin/products",
+  CREATE_NEW_PRODUCT: BASE_URL + "product/admin/createProduct",
 }
 
 export const authEndpoints={

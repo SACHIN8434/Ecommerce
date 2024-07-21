@@ -8,17 +8,7 @@ exports.createProduct = async(req,res)=>{
 
     try{
 
-        req.body.user = req.user.id;
-        const {name,description,price,images,category,reviews,user} = req.body;
-        const product = await  Product.create({
-            name,
-            description,
-            price,
-            images,
-            category,
-            reviews,
-            user,
-        });
+        
         res.status(201).json({
             success:true,
             product,   
