@@ -1,9 +1,21 @@
 const express = require('express')
 const router = express.Router();
 
-
+const multer  = require('multer')
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        // console.log("file in multer",file)
+      cb(null, './public')
+    },
+    filename: function (req, file, cb) {
+        console.log("coming to  multer");
+      cb(null, file.fieldname + '-' + Date.now() +  uniqueSuffix + '-' + file.originalname)
+    }
+  })
+  
+ const upload = multer({ storage, })
 //import the productController functions
-const {getAllProducts,createProduct,updateProduct,deleteProduct,getProductDetails, createProductReview, getProductReviews, deleteProductReview, getAdminProducts} = require("../controllers/productController");
+const {getAllProducts,createProduct,updateProduct,deleteProduct,getProductDetails,createProductReview, getProductReviews, deleteProductReview, getAdminProducts} = require("../controllers/productController");
 const { isAuthenticatedUser,authorizeRoles} = require('../middleware/auth');
 
 

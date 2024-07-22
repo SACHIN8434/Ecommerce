@@ -1,17 +1,42 @@
 const Product = require("../models/ProductModel");
 const ApiFeatures = require("../utils/apiFeatures");
 const ErrorHandler = require("../utils/errorHandler");
+const { uploadImageToCloudinary } = require("../utils/imageUploader");
 
 
 //create Product only for admin
 exports.createProduct = async(req,res)=>{
 
     try{
+        const imagesLinks = [];
+        const images = req.files.files;
+        console.log("req.files.files",req.files.files);
+        console.log("images are,images")
 
-        
+        for (let i = 0; i < images.length; i++) {
+          const result = await  uploadImageToCloudinary(
+              images[i],
+              process.env.FOLDER_NAME
+          );
+      
+          imagesLinks.push({
+            public_id: result.public_id,
+            url: result.secure_url,
+          });
+        }
+      
+        req.body.images = imagesLinks;
+        req.body.user = req.user.id;
+      
+        const product = await Product.create(req.body);
+      
+        console.log("req.files are",req.files.files);
+       console.log(req.body)
+       
         res.status(201).json({
             success:true,
-            product,   
+            product,
+            
         })
 
     }catch(err){

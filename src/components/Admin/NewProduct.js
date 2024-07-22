@@ -7,23 +7,22 @@ import Sidebar from "./Sidebar";
 const NewProduct = () => {
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     productName: "",
-    price :0,
-    description:"",
-    category:"",
-    stock:0,
-    images:[],
+    price: 0,
+    description: "",
+    category: "",
+    stock: 0,
+    images: [],
   });
-  const [productName,setProductName] = useState("");
-  const [price,setPrice] = useState(0);
-  const [description,setDescription] = useState("");
-  const [category,setCategory] = useState("");
-  const [stock,setStock] = useState(0);
-  const [imagePreview,setImagePreview] = useState([]);
-  const [images,setImages] = useState([]);
-  
+  const [productName, setProductName] = useState("");
+  const [price, setPrice] = useState(0);
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [stock, setStock] = useState(0);
+  const [imagePreview, setImagePreview] = useState([]);
+  const [images, setImages] = useState([]);
 
   const categories = [
     "Laptop",
@@ -43,48 +42,65 @@ const NewProduct = () => {
   //   }
   // },[dispatch])
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     console.log("comming to handleonSubmit");
-   const obj ={};
-   obj.productName = productName;
-   obj.price = price;
-   obj.description = description;
-   obj.category = category;
-   obj.stock = stock;
-   obj.images = [];   
-   images.forEach((image)=>{
-    obj.images.push(image);
-   })
-   console.log("preview images are",imagePreview)
-   dispatch(createProduct(obj,token,dispatch));
-   console.log(obj);
+    const formData = new FormData();
+
+    // console.log("formData is", formData);
+    // formData.append("name", productName);
+    // formData.append("price", price);
+    // formData.append("description", description);
+    // formData.append("category",category);
+    // formData.append("stock", stock);
+    // formData.append("images",images);
+    console.log("images are",images);
+    
+    // formData.append("images",images);
+    const myForm = new FormData();
+
+    myForm.append("name", productName);
+    myForm.append("price", price);
+    myForm.append("description", description);
+    myForm.append("category", category);
+    myForm.append("stock", stock);
+    console.log("images.length is",images.length);
+
+    // images.forEach((image) => {
+    //   myForm.append("images", image);
+    // });
+    // myForm.append("images",images);
+    for(let i = 0;i<images.length;i++){
+      console.log(images[i]);
+      myForm.append("files",images[i])
+    }
+    
+   
+     console.log("this is the object which we are sendig to the backend",formData);
+    const res = dispatch(createProduct(myForm,token,dispatch));
   };
 
-  const createProductImagesChange = (e)=>{
+  const createProductImagesChange = (e) => {
     const files = Array.from(e.target.files);
+    setImages(files);
 
-    console.log("files are",files);
-    
-    {/* ek hi baar me more than one file select kroge to setImage([]) and setImagePreview([]) shi kaam krega agar hta kr krna hai to dono ko hta do */}
-    setImages([]);
     setImagePreview([]);
 
-    files.forEach((file)=>{
+    files.forEach((file) => {
       const reader = new FileReader();
-      reader.onload = ()=>{
-        if(reader.readyState === 2){
-          setImagePreview((old)=>[...old,reader.result]);
-          setImages((old)=>[...old,reader.result]);
+
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setImagePreview((old) => [...old, reader.result]);
+          // setImages((old) => [...old, reader.result]);
         }
-      }
+      };
+
       reader.readAsDataURL(file);
-    })
-  }
-  
+    });
+  };
 
-  const {newProduct} = useSelector((state)=>state.product);
-
+  const { newProduct } = useSelector((state) => state.product);
 
   return (
     <>
@@ -102,8 +118,8 @@ const NewProduct = () => {
                 type="text"
                 id="productName"
                 placeholder="Enter Product Name"
-                name="productName"
-                onChange={(e)=>setProductName(e.target.value)}
+                value={productName}
+                onChange={(e) => setProductName(e.target.value)}
               />
             </div>
 
@@ -117,7 +133,8 @@ const NewProduct = () => {
                 id="price"
                 placeholder="Enter Product Price"
                 name="price"
-                onChange={(e)=>setPrice(e.target.value)}
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
               />
             </div>
 
@@ -131,26 +148,26 @@ const NewProduct = () => {
                 id="description"
                 placeholder="Description"
                 name="description"
-                onChange={(e)=>setDescription(e.target.value)}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </div>
 
             {/* category */}
-            <div >
+            <div>
               <label htmlFor="category">
                 category<sup className="text-pink-200">*</sup>
               </label>
               <select
-               onChange={(e)=>setCategory(e.target.value)} 
+                onChange={(e) => setCategory(e.target.value)}
                 name="category"
+                value={category}
                 id="category"
               >
-                <option value="">Choose Category</option>
+                <option>Choose Category</option>
                 <option>"jai"</option>
-                {categories.map((cate)=>(
-                  <option key={cate}>
-                  {cate}
-                  </option>
+                {categories.map((cate) => (
+                  <option key={cate}>{cate}</option>
                 ))}
               </select>
             </div>
@@ -165,7 +182,8 @@ const NewProduct = () => {
                 id="stock"
                 placeholder="Enter Product Stock"
                 name="stock"
-                onChange={(e)=>setStock(e.target.value)}
+                value={stock}
+                onChange={(e) => setStock(e.target.value)}
               />
             </div>
 
@@ -177,20 +195,34 @@ const NewProduct = () => {
               <input
                 type="file"
                 id="images"
-                name="avtar"
+                name="images"
                 accept="image/*"
                 onChange={createProductImagesChange}
                 multiple
+                // value={images}
+                // value=""
+                
               />
             </div>
 
             <div className="overflow-auto flex w-[20vw]">
-               {imagePreview.map((image,index)=>(
-                <img  key={index} src={image} alt="Avatar preview" className="w-[100px]"/>
-               ))} 
+              {imagePreview.map((image, index) => (
+                <img
+                  key={index}
+                  src={image}
+                  alt="Avatar preview"
+                  className="w-[100px]"
+                />
+              ))}
             </div>
 
-            <button type="submit" disabled={loading?true:false} className="text-white">submit</button>
+            <button
+              type="submit"
+              disabled={loading ? true : false}
+              className="text-white"
+            >
+              submit
+            </button>
           </form>
         </div>
       </div>

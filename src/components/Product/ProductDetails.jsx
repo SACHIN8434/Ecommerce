@@ -69,8 +69,9 @@ const ProductDetails = () => {
   const handleAddToCart = ()=>{
     //admin add to course nahi kr skta add krna hai
     console.log("jo productData bhej rhe h wo hai ye",productData);
-    productData.quantity = quantity;
+    // productData.quantity = quantity;
     dispatch(addToCart(productData));
+    toast.success("Product is added to Cart");
   }
 
   const submitReviewToggle = ()=>{

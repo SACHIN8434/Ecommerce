@@ -5,11 +5,16 @@ import { newReviewReducer } from "../../slices/productSlice";
 import { useDispatch } from "react-redux";
 import { AdminProducts } from "../../slices/productSlice";
 import { TurnedIn } from "@mui/icons-material";
-import {toast} from "react-hot-toast"
+import { toast } from "react-hot-toast";
 import { newProductReducer } from "../../slices/productSlice";
 
-const { GET_PRODUCT_API, GET_PRODUCT_DETAILS_API, NEW_REVIEW, ADMIN_PRODUCTS,CREATE_NEW_PRODUCT } =
-  productEndpoints;
+const {
+  GET_PRODUCT_API,
+  GET_PRODUCT_DETAILS_API,
+  NEW_REVIEW,
+  ADMIN_PRODUCTS,
+  CREATE_NEW_PRODUCT,
+} = productEndpoints;
 
 export const getAllProducts = async (
   keyword = "",
@@ -75,42 +80,45 @@ export function newReview(obj, token) {
 }
 
 //admin products
-export async function getAdminProducts(token,dispatch) {
-
-    console.log("coming to getAdmin Products");
-    try {
-      const response = await apiConnector("POST", ADMIN_PRODUCTS, { token });
-      console.log("response of getAdminProducts Api",response);
-      dispatch(AdminProducts(response.data.products));
-      return true;
-    } catch (e) {
-      alert("error in admin products fetching");
-      return false;
-      
-    }
+export async function getAdminProducts(token, dispatch) {
+  console.log("coming to getAdmin Products");
+  try {
+    const response = await apiConnector("POST", ADMIN_PRODUCTS, { token });
+    console.log("response of getAdminProducts Api", response);
+    dispatch(AdminProducts(response.data.products));
     return true;
-  
-}
-
-// create new product 
-export const createProduct = (productData,token)=>{
-
-return async (dispatch)=>{
-
-  try{
-
-    console.log("productData is",productData);
-    // const response = await apiConnector("POST",CREATE_NEW_PRODUCT,{token,productData});
-    // console.log("response from createNewProduct Api",response);
-    
-    // if(response.data.success === true){
-    //   toast.success("Product is Created Successfully");
-    //   dispatch(newProductReducer(response.data.product));
-    // }
-  }catch(err){
-    toast.error("Error creating product");
+  } catch (e) {
+    alert("error in admin products fetching");
+    return false;
   }
-  
-}
+  return true;
 }
 
+// create new product
+export const createProduct = (formData,token) => {
+  return async (dispatch) => {
+    try {
+      console.log("productData is coming in create pr", formData);
+      console.log("token is",token);
+
+      const response = await apiConnector("POST", CREATE_NEW_PRODUCT,formData,{
+        "content-Type":"multipart/form-data",
+        Authorisation:`Bearer ${token}`
+      }
+      );
+      console.log("response from createNewProduct Api", response);
+
+      if (response.data.success === true) {
+        toast.success("Product is Created Successfully");
+        dispatch(newProductReducer(response.data.product));
+      }
+      return true;
+    } catch (err) {
+      toast.error("Error creating product");
+      return false;
+    }
+    return true
+
+  };
+  return true
+};

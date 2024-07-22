@@ -4,7 +4,9 @@ const User = require("../models/UserModel");
 exports.isAuthenticatedUser = async (req, res, next) => {
     try {
         console.log("isAuthenticatedUser me aa gye hai")
-        const { token } = req.body;
+        const  token  = req.body.token || req.header("Authorisation").replace("Bearer ","");
+       
+        
 
         if (!token || token === undefined) {
             return res.status(401).json({

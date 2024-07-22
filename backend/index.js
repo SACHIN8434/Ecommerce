@@ -1,5 +1,9 @@
 const express  = require("express");
 const app = express();
+const bodyParser = require("body-parser");
+const multer  = require('multer')
+const {cloudinaryConnect} = require("./config/cloudinary");
+const fileUpload = require("express-fileupload");
 const dotenv = require("dotenv");
 // const errorHandler = require("./middleware/error")
 const cookieParser = require("cookie-parser")
@@ -29,8 +33,27 @@ app.use(
         credentials: true,
     })
 )
+
+
+
+
+
+app.use(
+    fileUpload({
+        useTempFiles:true,
+        tempFileDir:"/tmp",
+    })
+)
+
+//cloudinary connection
+cloudinaryConnect();
+
+
 app.use(express.json());
 app.use(cookieParser());
+app.use(bodyParser.json()); // for JSON data
+
+
 // app.use(errorHandler);
 
 //routes
