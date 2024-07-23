@@ -28,7 +28,7 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   console.log("Product id is:", id);
-  const [productData, setProductData] = useState(null);
+  let [productData, setProductData] = useState(null);
   const [loading, setLoading] = useState(false);
   const {token} = useSelector((state)=>state.auth);
   // const {newReview} = useSelector((state)=>state.product);
@@ -69,7 +69,14 @@ const ProductDetails = () => {
   const handleAddToCart = ()=>{
     //admin add to course nahi kr skta add krna hai
     console.log("jo productData bhej rhe h wo hai ye",productData);
-    // productData.quantity = quantity;
+    productData.quantity = quantity;
+    // Object.defineProperties(productData, {
+    //   quantity: {
+    //     value: quantity,
+    //     writable: true,
+    //   },
+    //   // etc. etc.
+    // });
     dispatch(addToCart(productData));
     toast.success("Product is added to Cart");
   }

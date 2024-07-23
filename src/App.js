@@ -23,6 +23,7 @@ import OrderDetails from "./components/Order/OrderDetails";
 import Dashboard from "./components/Admin/Dashboard"
 import ProductList from "./components/Admin/ProductList"
 import NewProduct from "./components/Admin/NewProduct";
+import UpdateProduct from "./components/Admin/UpdateProduct";
 function App() {
   return (
     <div>
@@ -53,6 +54,7 @@ function App() {
         <Route path="/admin/dashboard" element={<Dashboard/>}></Route>
         <Route path="/admin/products" element={<ProductList/>}></Route>
         <Route path="/admin/product" element={<NewProduct/>}></Route>
+        <Route path="/admin/product/:id" element={<UpdateProduct/>}></Route>
       </Routes>
     </div>
   );

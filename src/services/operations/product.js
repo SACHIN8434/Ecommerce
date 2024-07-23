@@ -7,6 +7,7 @@ import { AdminProducts } from "../../slices/productSlice";
 import { TurnedIn } from "@mui/icons-material";
 import { toast } from "react-hot-toast";
 import { newProductReducer } from "../../slices/productSlice";
+import {oneProductDetails} from "../../slices/productSlice";
 
 const {
   GET_PRODUCT_API,
@@ -14,6 +15,7 @@ const {
   NEW_REVIEW,
   ADMIN_PRODUCTS,
   CREATE_NEW_PRODUCT,
+  DELETE_PRODUCT,
 } = productEndpoints;
 
 export const getAllProducts = async (
@@ -47,19 +49,35 @@ export const getAllProducts = async (
 };
 
 //get product details
-export const getProductDetails = async (productId) => {
+export const getProductDetails = async(productId)=>{
   let result;
   try {
-    console.log("productId in getProductDetails api is", productId);
     const response = await apiConnector("POST", GET_PRODUCT_DETAILS_API, {
       productId,
     });
     result = response?.data;
+    // dispatch(oneProductDetails(response.data));
   } catch (error) {
     console.log("GET_PRODUCT_DETAILS_API_ERROR............", error);
   }
   return result;
-};
+}
+//get product details
+export function getOneProductDetails(productId){
+  return async(dispatch)=>{
+
+    try {
+      const response = await apiConnector("POST", GET_PRODUCT_DETAILS_API, {
+        productId,
+      });
+        response?.data && dispatch(oneProductDetails(response.data.productDetails));
+    } catch (error) {
+      console.log("GET_PRODUCT_DETAILS_API_ERROR............", error);
+    }
+  }
+}
+  
+
 
 export function newReview(obj, token) {
   return async (dispatch) => {
@@ -122,3 +140,21 @@ export const createProduct = (formData,token) => {
   };
   return true
 };
+
+export const deleteProduct = async(id,token)=>{
+  try{
+
+
+    const res = await apiConnector("POST",DELETE_PRODUCT,{id},{
+       "content-Type":"multipart/form-data",
+          Authorisation:`Bearer ${token}`
+    })
+    if(res.data.success === true){
+      return true;
+    }
+  }catch(error){
+    toast.error("Error while deleting product");
+    console.log("Error while deleting product",error);
+    return false;
+  }
+}

@@ -36,7 +36,7 @@ const ProductCart = ({product}) => {
           <p>Ratings {product.ratings}</p>
           </div>
         </div>
-        <div>{product.quantity}</div>
+        <div>this is product quantity {product.quantity}</div>
         <div>
           {product.price}
         </div>

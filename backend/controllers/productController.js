@@ -2,6 +2,8 @@ const Product = require("../models/ProductModel");
 const ApiFeatures = require("../utils/apiFeatures");
 const ErrorHandler = require("../utils/errorHandler");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
+const cloudinary = require("cloudinary").v2;
+
 
 
 //create Product only for admin
@@ -148,7 +150,8 @@ exports.updateProduct = async(req,res,next)=>{
 exports.deleteProduct = async(req,res,next)=>{
 
     try{
-        const productId = req.params.id;
+        console.log("comming to delete product");
+        const productId = req.body.id;
 
         const product = await Product.findById(productId);
 
@@ -158,8 +161,17 @@ exports.deleteProduct = async(req,res,next)=>{
                 message:"product not found",
             })
         }
-        await Product.findByIdAndDelete({_id:productId});
 
+
+        //dleting images from cloudinary ***add krna h ye
+        
+        // for(let i = 0;i<product.images.length;i++){
+        //     await cloudinary.v2.uploader.destroy(product.images[i].public_id);
+        // }
+
+        console.log("product not deleted successfully");
+        await Product.findByIdAndDelete({_id:productId});
+        console.log("product deleted successfully");
         return res.status(200).json({
             success:true,
             message:"Product deleted successfully"

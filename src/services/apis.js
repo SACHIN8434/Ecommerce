@@ -12,6 +12,7 @@ export const productEndpoints = {
   NEW_REVIEW : BASE_URL + "/product/review",
   ADMIN_PRODUCTS: BASE_URL + "/product/admin/products",
   CREATE_NEW_PRODUCT: BASE_URL + "/product/admin/createProduct",
+  DELETE_PRODUCT: BASE_URL + "/product/admin/deleteProduct",
 }
 
 export const authEndpoints={

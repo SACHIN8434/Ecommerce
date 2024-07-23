@@ -6,6 +6,7 @@ const initialState = {
     newReview:null,
     adminProducts:null,
     newProduct:null,
+    productDetails:{id:null},
 }
 
 const productSlice = createSlice({
@@ -26,13 +27,16 @@ const productSlice = createSlice({
         },
         newProductReducer:(state,action)=>{
             state.newProduct = action.payload;
+        },
+        oneProductDetails:(state,action)=>{
+            state.productDetails = action.payload;
         }
     }
     
 })
 
 export const {
-    setProduct,newReviewReducer,AdminProducts,newProductReducer
+    setProduct,newReviewReducer,AdminProducts,newProductReducer,oneProductDetails
 } = productSlice.actions
 
 export default productSlice.reducer;

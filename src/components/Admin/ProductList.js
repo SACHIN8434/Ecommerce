@@ -8,6 +8,8 @@ import Sidebar from "./Sidebar";
 import { MdDelete } from "react-icons/md";
 import { MdOutlineEdit } from "react-icons/md";
 import { GridDeleteIcon } from "@mui/x-data-grid";
+import {deleteProduct} from "../../services/operations/product";
+import {toast} from "react-hot-toast"
 
 const ProductList = () => {
   const dispatch = useDispatch();
@@ -15,6 +17,15 @@ const ProductList = () => {
  
   const { token } = useSelector((state) => state.auth);
  const [loading,setLoading] = useState(true)
+
+ const handleDeleteProduct = async(id)=>{
+  setLoading(true);
+  const res = await deleteProduct(id,token);
+  if(res){
+    toast.success("Product deleted Successfully");
+  }
+  setLoading(false);
+ }
   useEffect(() => {
     setLoading(true);
       async function products(){
@@ -23,11 +34,10 @@ const ProductList = () => {
         setLoading(false);
       } catch (e) {
         alert("Error occured while fetching adming products");
-        
       }
     };
     products();
-  }, []);
+  },[dispatch,loading]);
   const columns = [
     { field: "id", headerName: "Product ID", minWidth: 200, flex: 0.5 },
 
@@ -61,14 +71,17 @@ const ProductList = () => {
       renderCell: (params) => {
         return (
           <Fragment>
+            <div className="flex flex-row items-center justify-center gap-x-5">
+
             <Link
               to={`/admin/product/${params.api.getCellValue(params.id, "id")}`}
             >
               <MdOutlineEdit/>
             </Link>
-            <button>
+            <button onClick={()=>handleDeleteProduct(params.api.getCellValue(params.id, "id"))}>
               <GridDeleteIcon />
             </button>
+            </div>
           </Fragment>
         );
       },
