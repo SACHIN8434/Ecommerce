@@ -2,14 +2,17 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Sidebar from "./Sidebar";
-import {updateProduct,getOneProductDetails} from "../../services/operations/product"
+import {
+  updateProduct,
+  getOneProductDetails,
+} from "../../services/operations/product";
 import { useParams } from "react-router-dom";
 
 const UpdateProduct = () => {
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const [oldImages,setOldImages] = useState([]);
+  const [oldImages, setOldImages] = useState([]);
   const [formData, setFormData] = useState({
     productName: "",
     price: 0,
@@ -27,9 +30,9 @@ const UpdateProduct = () => {
 
   const [images, setImages] = useState([]);
   //productId
-  const {id} = useParams();
-  console.log("id is",id);
-  const {productDetails} = useSelector((state)=>state.product);
+  const { id } = useParams();
+  console.log("id is", id);
+  const { productDetails } = useSelector((state) => state.product);
 
   const categories = [
     "Laptop",
@@ -43,19 +46,18 @@ const UpdateProduct = () => {
     "charger",
   ];
   let num = 0;
-  useEffect(()=>{
-        if(productDetails && productDetails._id !== id){
-            dispatch(getOneProductDetails(id,dispatch));
-        }else{
-            setProductName(productDetails.name);
-            setDescription(productDetails.description);
-            setPrice(productDetails.price);
-            setCategory(productDetails.category);
-            setStock(productDetails.stock);
-            setOldImages(productDetails.images);
-        }
-      },[dispatch,getOneProductDetails]);
-
+  useEffect(() => {
+    if(productDetails && productDetails._id !== id){
+      dispatch(getOneProductDetails(id, dispatch));
+    }else{
+      setProductName(productDetails.name);
+      setDescription(productDetails.description);
+      setPrice(productDetails.price);
+      setCategory(productDetails.category);
+      setStock(productDetails.stock);
+      setOldImages(productDetails.images);
+    }
+  },[dispatch]);
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
@@ -69,8 +71,8 @@ const UpdateProduct = () => {
     // formData.append("category",category);
     // formData.append("stock", stock);
     // formData.append("images",images);
-    console.log("images are",images);
-    
+    console.log("images are", images);
+
     // formData.append("images",images);
     const myForm = new FormData();
 
@@ -79,19 +81,21 @@ const UpdateProduct = () => {
     myForm.append("description", description);
     myForm.append("category", category);
     myForm.append("stock", stock);
-    console.log("images.length is",images.length);
+    console.log("images.length is", images.length);
 
     // images.forEach((image) => {
     //   myForm.append("images", image);
     // });
     // myForm.append("images",images);
-    for(let i = 0;i<images.length;i++){
+    for (let i = 0; i < images.length; i++) {
       console.log(images[i]);
-      myForm.append("files",images[i])
+      myForm.append("files", images[i]);
     }
-    
-   
-     console.log("this is the object which we are sendig to the backend",formData);
+
+    console.log(
+      "this is the object which we are sendig to the backend",
+      formData
+    );
   };
 
   const createProductImagesChange = (e) => {
@@ -113,7 +117,6 @@ const UpdateProduct = () => {
       reader.readAsDataURL(file);
     });
   };
-
 
   return (
     <>
@@ -214,7 +217,6 @@ const UpdateProduct = () => {
                 multiple
                 // value={images}
                 // value=""
-                
               />
             </div>
 

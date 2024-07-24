@@ -6,7 +6,7 @@ const initialState = {
     newReview:null,
     adminProducts:null,
     newProduct:null,
-    productDetails:{id:null},
+    productDetails:{},
 }
 
 const productSlice = createSlice({
