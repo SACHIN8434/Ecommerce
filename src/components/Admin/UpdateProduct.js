@@ -27,7 +27,6 @@ const UpdateProduct = () => {
   const [category, setCategory] = useState("");
   const [stock, setStock] = useState(0);
   const [imagePreview, setImagePreview] = useState([]);
-
   const [images, setImages] = useState([]);
   //productId
   const { id } = useParams();
@@ -62,18 +61,8 @@ const UpdateProduct = () => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     console.log("comming to handleonSubmit");
-    const formData = new FormData();
-
-    // console.log("formData is", formData);
-    // formData.append("name", productName);
-    // formData.append("price", price);
-    // formData.append("description", description);
-    // formData.append("category",category);
-    // formData.append("stock", stock);
-    // formData.append("images",images);
+    const formData = new FormData();  
     console.log("images are", images);
-
-    // formData.append("images",images);
     const myForm = new FormData();
 
     myForm.append("name", productName);
@@ -82,27 +71,23 @@ const UpdateProduct = () => {
     myForm.append("category", category);
     myForm.append("stock", stock);
     console.log("images.length is", images.length);
-
-    // images.forEach((image) => {
-    //   myForm.append("images", image);
-    // });
-    // myForm.append("images",images);
-    for (let i = 0; i < images.length; i++) {
-      console.log(images[i]);
-      myForm.append("files", images[i]);
+    if(images.length === 0){
+      myForm.append("files",undefined);
+    }else{
+      for (let i = 0; i < images.length; i++) {
+        console.log(images[i]);
+        myForm.append("files", images[i]);
+      }
     }
-
-    console.log(
-      "this is the object which we are sendig to the backend",
-      formData
-    );
-  };
+    dispatch(updateProduct(id,token,myForm));
+    };
 
   const createProductImagesChange = (e) => {
     const files = Array.from(e.target.files);
     setImages(files);
 
     setImagePreview([]);
+    setOldImages([]);
 
     files.forEach((file) => {
       const reader = new FileReader();
@@ -110,7 +95,6 @@ const UpdateProduct = () => {
       reader.onload = () => {
         if (reader.readyState === 2) {
           setImagePreview((old) => [...old, reader.result]);
-          // setImages((old) => [...old, reader.result]);
         }
       };
 
@@ -215,13 +199,21 @@ const UpdateProduct = () => {
                 accept="image/*"
                 onChange={createProductImagesChange}
                 multiple
-                // value={images}
-                // value=""
               />
             </div>
 
             <div className="overflow-auto flex w-[20vw]">
-              {imagePreview.map((image, index) => (
+              {oldImages && oldImages.map((image, index) => (
+                <img
+                  key={index}
+                  src={image.url}
+                  alt="Avatar preview"
+                  className="w-[100px]"
+                />
+              ))}
+            </div>
+            <div className="overflow-auto flex w-[20vw]">
+              {imagePreview && imagePreview.map((image, index) => (
                 <img
                   key={index}
                   src={image}

@@ -13,6 +13,7 @@ export const productEndpoints = {
   ADMIN_PRODUCTS: BASE_URL + "/product/admin/products",
   CREATE_NEW_PRODUCT: BASE_URL + "/product/admin/createProduct",
   DELETE_PRODUCT: BASE_URL + "/product/admin/deleteProduct",
+  UPDATE_PRODUCT: BASE_URL + "/product/admin/updateProduct",
 }
 
 export const authEndpoints={

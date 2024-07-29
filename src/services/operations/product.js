@@ -16,6 +16,7 @@ const {
   ADMIN_PRODUCTS,
   CREATE_NEW_PRODUCT,
   DELETE_PRODUCT,
+  UPDATE_PRODUCT,
 } = productEndpoints;
 
 export const getAllProducts = async (
@@ -156,5 +157,22 @@ export const deleteProduct = async(id,token)=>{
     toast.error("Error while deleting product");
     console.log("Error while deleting product",error);
     return false;
+  }
+}
+
+export const updateProduct = async(id,token,formData)=>{
+  try{
+    const res = await apiConnector("PUT",`http://localhost:4000/api/v1/product/admin/updateProduct/${id}`,formData,{
+      "content-Type":"multipart/form-data",
+      Authorisation:`Bearer ${token}`
+    })
+
+    console.log("response from update product",res);
+    if(res.status.success === true){
+      toast.success("Product updated successfully");
+    }
+  }catch(error){
+    console.log("Error while updating product api function",error);
+    toast.error("Error while updating product");
   }
 }

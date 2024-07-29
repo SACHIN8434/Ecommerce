@@ -24,7 +24,7 @@ const Product = ({product}) => {
 
     <div className="px-8 hover:scale-105 transition-all duration-75 delay-75 ease-out">
     <Link to={`product/${product._id}`} >
-    <img src={product.images[0].url}alt={product.name} className="object-cover h-[50vh]"/>
+    <img src={product.images[0].url}alt={product.name} className="object-contain w-[30vw] h-[50vh]"/>
     <p>{product.name}</p>
     <div>
         <Rating {...options}/>
