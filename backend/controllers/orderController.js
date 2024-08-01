@@ -94,7 +94,7 @@ exports.myOrders = async(req,res)=>{
 exports.getAllOrders = async(req,res)=>{
     try{
 
-        const orders = await Order.find();
+        const orders = await Order.find(req.body.id);
 
         let totalAmount  = 0;
         orders.forEach((order)=>{
@@ -102,7 +102,7 @@ exports.getAllOrders = async(req,res)=>{
         })
 
         res.status(200).json({
-            success:false,
+            success:true,
             message:"order fetched successfuly",
             orders,
             totalAmount,
@@ -122,7 +122,7 @@ exports.getAllOrders = async(req,res)=>{
 exports.updateOrder = async(req,res)=>{
     try{
 
-        const order = await Order.findById(req.params.id);
+        const order = await Order.findById(req.body.id);
         if(!order){
             return res.status(401).json({
                 success:false,
@@ -175,7 +175,7 @@ async function updateStock(id,quantity){
 exports.deleteOrder = async(req,res)=>{
     try{
 
-        const order = await Order.findById(req.params.id);
+        const order = await Order.findById(req.body.id);
         
 
         if(!order){
@@ -185,7 +185,7 @@ exports.deleteOrder = async(req,res)=>{
             })
         }
 
-        await Order.findByIdAndDelete(req.params.id);
+        await Order.findByIdAndDelete(req.body.id);
 
         res.status(200).json({
             success:true,

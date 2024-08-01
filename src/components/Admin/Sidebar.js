@@ -15,7 +15,7 @@ const Sidebar = () => {
           </div>
         </div>
         <div>
-          <Link>Orders</Link>
+          <Link to={"/admin/orders"}>Orders</Link>
         </div>
         <div>
           <Link>Users</Link>

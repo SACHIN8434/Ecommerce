@@ -28,4 +28,7 @@ export const orderEndPoints = {
   CREATE_ORDER:BASE_URL + "/order/createOrder",
   MY_ORDER:BASE_URL + "/order/myOrders",
   GET_SINGLE_ORDER_DETAILS:BASE_URL + "/order/getSingleOrder",
+  GET_ALL_ORDERS : BASE_URL + "/order/admin/getAllOrders",
+  DELETE_ORDER:BASE_URL + "/order/admin/deleteOrder",
+  UPDATE_ORDER:BASE_URL + "/order/admin/updateOrder",
 }

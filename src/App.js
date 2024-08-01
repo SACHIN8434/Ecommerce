@@ -24,6 +24,7 @@ import Dashboard from "./components/Admin/Dashboard"
 import ProductList from "./components/Admin/ProductList"
 import NewProduct from "./components/Admin/NewProduct";
 import UpdateProduct from "./components/Admin/UpdateProduct";
+import OrderList from "./components/Admin/OrderList";
 function App() {
   return (
     <div>
@@ -55,6 +56,7 @@ function App() {
         <Route path="/admin/products" element={<ProductList/>}></Route>
         <Route path="/admin/product" element={<NewProduct/>}></Route>
         <Route path="/admin/product/:id" element={<UpdateProduct/>}></Route>
+        <Route path="/admin/orders" element={<OrderList/>}></Route>
       </Routes>
     </div>
   );

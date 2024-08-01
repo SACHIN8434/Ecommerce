@@ -3,10 +3,14 @@ import { apiConnector } from "../apiConnector";
 import { setMyOrders } from "../../slices/orderSlice";
 import {setSingleOrderDetails} from "../../slices/orderSlice";
 import {resetCart} from "../../slices/cartSlice";
+import {allOrdersReducer} from "../../slices/orderSlice"
 const {
     CREATE_ORDER,
     MY_ORDER,
-    GET_SINGLE_ORDER_DETAILS
+    GET_SINGLE_ORDER_DETAILS,
+    GET_ALL_ORDERS,
+    DELETE_ORDER,
+    UPDATE_ORDER
 } = orderEndPoints;
 
 export const createOrder = async (order, token, navigate,dispatch) => {
@@ -63,4 +67,54 @@ export const getSingleOrderDetails = async (token,id,dispatch) => {
     }
 }
 
-// export const getSingleOrderDetails = async(token,)
+//get all orders(admin)
+export const getAllOrders = async (token, dispatch) => {
+    try {
+        const response = await apiConnector("POST", GET_ALL_ORDERS, {
+            token,
+        })
+        console.log("admin orders", response);
+        if (response.data.success === true) {
+            dispatch(allOrdersReducer(response.data.orders))
+        }
+        return true;
+    } catch (error) {
+        alert("Error in get all orders for admin api");
+        return false;
+    }
+}
+
+//update order(admin)
+export const updateOrder = async (id,order, token,dispatch) => {
+    try {
+        const response = await apiConnector("POST", UPDATE_ORDER, {
+            order,
+            token,
+            id,
+        })
+        console.log("order updation response is", response);
+        if (response.status === "success") {
+            alert("order is updated successfully");
+
+        }
+    } catch (err) {
+        alert("order is not updated successfully")
+    }
+}
+
+
+//delete order(admin)
+export const deleteOrder = async (id, token,dispatch) => {
+    try {
+        const response = await apiConnector("POST", DELETE_ORDER, {
+            token,
+            id
+        })
+        console.log("delete order response only admin can delete", response);
+       return response.data.success;
+    } catch (err) {
+        alert("Error in delete order");
+        console.log(err);
+        return false;
+    }
+}

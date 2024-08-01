@@ -19,11 +19,11 @@ module.exports = router;
 
 //in the last
 //get all orders->admin
-router.get("/admin/getAllOrders",isAuthenticatedUser,authorizeRoles("admin"),getAllOrders);
+router.post("/admin/getAllOrders",isAuthenticatedUser,authorizeRoles("admin"),getAllOrders);
 
 // update order
-router.put("/admin/updateOrder/:id",isAuthenticatedUser,authorizeRoles("admin"),updateOrder);
+router.post("/admin/updateOrder",isAuthenticatedUser,authorizeRoles("admin"),updateOrder);
 
 //delete order
-router.delete("/admin/deleteOrder/:id",isAuthenticatedUser,authorizeRoles("admin"),deleteOrder);
+router.post("/admin/deleteOrder",isAuthenticatedUser,authorizeRoles("admin"),deleteOrder);
 
