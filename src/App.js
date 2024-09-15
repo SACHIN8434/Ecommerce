@@ -25,6 +25,8 @@ import ProductList from "./components/Admin/ProductList"
 import NewProduct from "./components/Admin/NewProduct";
 import UpdateProduct from "./components/Admin/UpdateProduct";
 import OrderList from "./components/Admin/OrderList";
+import ProcessOrder from "./components/Admin/ProcessOrder";
+import UsersList from "./components/Admin/UsersList";
 function App() {
   return (
     <div>
@@ -57,6 +59,8 @@ function App() {
         <Route path="/admin/product" element={<NewProduct/>}></Route>
         <Route path="/admin/product/:id" element={<UpdateProduct/>}></Route>
         <Route path="/admin/orders" element={<OrderList/>}></Route>
+        <Route path="/admin/orders/:id" element={<ProcessOrder/>}></Route>
+        <Route path="/admin/users" element={<UsersList/>}></Route>
       </Routes>
     </div>
   );

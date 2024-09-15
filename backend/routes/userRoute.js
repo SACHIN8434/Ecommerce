@@ -20,8 +20,8 @@ router.put("/updatePassword",isAuthenticatedUser,updatePassword)
 
 router.put("/updateUserProfile",isAuthenticatedUser,updateUserProfile)
 
-router.get("/admin/users",isAuthenticatedUser,authorizeRoles("admin"),getAllUser)
-router.get("/admin/user/:id",isAuthenticatedUser,authorizeRoles("admin"),getSingleUser)
+router.post("/admin/users",isAuthenticatedUser,authorizeRoles("admin"),getAllUser)
+router.post("/admin/user/:id",isAuthenticatedUser,authorizeRoles("admin"),getSingleUser)
 
 router.put("/admin/updateUserRole/:id",isAuthenticatedUser,authorizeRoles("admin"),updateUserRole)
 

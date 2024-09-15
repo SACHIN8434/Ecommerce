@@ -121,8 +121,11 @@ exports.getAllOrders = async(req,res)=>{
 //update order status-admin
 exports.updateOrder = async(req,res)=>{
     try{
+        console.log("coming in update order");
+        console.log("order status coming is",req.body.status);
+        
 
-        const order = await Order.findById(req.body.id);
+        const order = await Order.findById(req.params.id);
         if(!order){
             return res.status(401).json({
                 success:false,
@@ -137,10 +140,12 @@ exports.updateOrder = async(req,res)=>{
             });
         }
 
-        order.orderItems.forEach(async(o)=>{
-            await updateStock(o.product,o.quantity)
-        });
-
+        if(req.body.status === "Shipped"){
+            order.orderItems.forEach(async(o)=>{
+                await updateStock(o._id,o.quantity)
+            });
+        }
+        
         order.orderStatus = req.body.status;
 
         if(req.body.status === "Delivered"){
@@ -150,7 +155,7 @@ exports.updateOrder = async(req,res)=>{
         await order.save({validateBeforeSave:false})
 
         res.status(200).json({
-            success:false,
+            success:true,
             message:"order updated successfuly",
         })
 

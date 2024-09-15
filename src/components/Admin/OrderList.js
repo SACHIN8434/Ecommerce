@@ -82,7 +82,7 @@ const OrderList = () => {
           <Fragment>
             <div className="flex flex-row items-center justify-center gap-x-5">
               <Link
-                to={`/admin/order/${params.api.getCellValue(
+                to={`/admin/orders/${params.api.getCellValue(
                   params.id,
                   "id"
                 )}`}

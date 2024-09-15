@@ -5,6 +5,7 @@ const initialState = {
     singleOrderDetails:localStorage.getItem('singleOrderDetails')?JSON.parse(localStorage.getItem('singleOrderDetails')):null,
     adminOrders:[],
     deleteOrder:null,
+
 }
 const orderSlice = createSlice({
     name:"order",
@@ -24,11 +25,10 @@ const orderSlice = createSlice({
         },
         deleteOrder(state,value){
             state.deleteOrder = value.payload;
-        }
+        },
     }
-
 })
 
-export const{setMyOrders,setLoading,setSingleOrderDetails,allOrdersReducer,deleteOrder} = orderSlice.actions;
+export const{setMyOrders,setLoading,setSingleOrderDetails,allOrdersReducer,deleteOrder,allUsersReducer,singleUser} = orderSlice.actions;
 export default orderSlice.reducer;
 

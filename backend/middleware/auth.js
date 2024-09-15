@@ -7,7 +7,7 @@ exports.isAuthenticatedUser = async (req, res, next) => {
         const  token  = req.body.token || req.header("Authorisation").replace("Bearer ","");
        
         
-
+        console.log(token);
         if (!token || token === undefined) {
             return res.status(401).json({
                 success: false,

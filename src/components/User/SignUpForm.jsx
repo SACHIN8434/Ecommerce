@@ -30,10 +30,10 @@ const SignUpForm = () => {
   }
     const [showPassword, setShowPassword] = useState(false)
   return (
-    <div>
-      <form onSubmit={handleOnSubmit}>
+    <div className="w-full h-[100vh] flex items-center justify-center flex-col bg-slate-300">
+      <form onSubmit={handleOnSubmit} className="flex items-center flex-col justify-center gap-10 bg-blue-500 border-blue-400 relative w-[35vw] h-[60vh] rounded-md shadow-2xl">
       <label>
-            <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
+            <p className="mb-1 text-[1rem] leading-[1.375rem] text-richblack-9 font-semibold">
               First Name <sup className="text-pink-200">*</sup>
             </p>
             <input
@@ -44,13 +44,14 @@ const SignUpForm = () => {
               onChange={handleOnChange}
               placeholder="Enter first name"
               style={{
-                boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
-              }}
-              className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] text-richblack-5"
+              boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
+              border: "1px solid black",
+            }}
+            className="w-[30vw] rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5 m-auto"
             />
           </label>
-          <label className="w-full">
-          <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
+          <label>
+          <p className="mb-1 text-[1rem] leading-[1.375rem] text-richblack-9 font-semibold">
             Email Address <sup className="text-pink-200">*</sup>
           </p>
           <input
@@ -62,12 +63,13 @@ const SignUpForm = () => {
             placeholder="Enter email address"
             style={{
               boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
+              border: "1px solid black",
             }}
-            className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] text-richblack-5"
+            className="w-[30vw] rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5 m-auto"
           />
         </label>
         <label className="relative">
-            <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
+        <p className="mb-1 text-[1rem] leading-[1.375rem] text-richblack-9 font-semibold">
               Create Password <sup className="text-pink-200">*</sup>
             </p>
             <input
@@ -78,9 +80,10 @@ const SignUpForm = () => {
               onChange={handleOnChange}
               placeholder="Enter Password"
               style={{
-                boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
-              }}
-              className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5"
+              boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
+              border: "1px solid black",
+            }}
+            className="w-[30vw] rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5 m-auto"
             />
             <span
               onClick={() => setShowPassword((prev) => !prev)}

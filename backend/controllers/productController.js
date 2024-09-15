@@ -7,8 +7,9 @@ const cloudinary = require("cloudinary").v2;
 //create Product only for admin
 exports.createProduct = async (req, res) => {
   try {
-    const imagesLinks = [];
+    let imagesLinks = [];
     const images = req.files.files;
+    console.log(images);
     console.log("req.files.files", req.files.files);
     console.log("images are,images");
 
@@ -18,15 +19,17 @@ exports.createProduct = async (req, res) => {
         process.env.FOLDER_NAME
       );
 
+      
       imagesLinks.push({
         public_id: result.public_id,
         url: result.secure_url,
       });
     }
 
+    console.log("imagesLinks are",imagesLinks);
     req.body.images = imagesLinks;
     req.body.user = req.user.id;
-
+    console.log("req.body",req.body);
     const product = await Product.create(req.body);
 
     console.log("req.files are", req.files.files);

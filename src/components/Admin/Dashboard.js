@@ -6,6 +6,7 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 import { ArcElement, Tooltip, Legend } from "chart.js";
 import { getAdminProducts } from "../../services/operations/product";
 import { useSelector, useDispatch } from "react-redux";
+import { getAllOrders } from "../../services/operations/order";
 
 import {
   Chart as ChartJS,
@@ -27,12 +28,14 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const Dashboard = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+  const {adminOrders} = useSelector((state)=>state.order);
   useEffect(() => {
     setLoading(true);
     const fun = async () => {
       try {
         console.log("comming to admin products");
         const res = await getAdminProducts(token, dispatch);
+        const res2 = await getAllOrders(token,dispatch);
         console.log(res);
         setLoading(false);
       } catch (e) {
@@ -119,7 +122,7 @@ const Dashboard = () => {
                 className="text-black bg-yellow-200 h-[100px] w-[100px] flex flex-col items-center justify-center rounded-full"
               >
                 <p>Orders</p>
-                <p>4</p>
+                <p>{adminOrders && adminOrders.length}</p>
               </Link>
               <Link
                 to={"/admin/users"}

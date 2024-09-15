@@ -100,7 +100,7 @@ export function newReview(obj, token) {
 
 //admin products
 export async function getAdminProducts(token, dispatch) {
-  console.log("coming to getAdmin Products");
+  console.log("coming to getAdmin Products",token);
   try {
     const response = await apiConnector("POST", ADMIN_PRODUCTS, { token });
     console.log("response of getAdminProducts Api", response);

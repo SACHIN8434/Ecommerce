@@ -61,14 +61,18 @@ const ConfirmOrder = () => {
   }
 
   return (
+    <div className='bg-slate-300 w-full h-[100vh] mt-5 flex flex-col flex-wrap justify-center'>
+    <div className='text-center text-3xl mt-5 font-sans font-medium'>Shippping Details</div>
     <Fragment>
+    <div className='mt-5'>
       <CheckoutSteps activeStep={1}></CheckoutSteps>
+    </div>
+    <div className='flex flex-wrap justify-around items-center flex-row w-[90vw] m-auto'>
 
       {/* shippingInfo and cart items */}
-      <div>
+      <div className='mt-5 flex flex-col flex-wrap items-center justify-center gap-8'>
         {/* shippingInfo div */}
-        <div>
-          <h2>Shipping Information</h2>
+        <div className='mt-5 flex flex-col flex-wrap items-start justify-center gap-5 font-sans font-medium'>
           <p>Name : <span>{user.name}</span></p>
           <p>Phone : <span>{shippingInfo.phoneNo}</span></p>
           <p>Address : <span>{shippingInfo.address}</span></p>
@@ -96,17 +100,20 @@ const ConfirmOrder = () => {
       </div>
 
       {/* //charges div*/}
-      <div>
-        <h2>Order Summery</h2>
-        <p>Subtotal </p>
-        <p>{totalAmount}</p>
-        <p>Shipping Charges</p>
-        <p>0</p>
+      <div className='mt-5 flex flex-col items-center text-start justify-center gap-2 font-sans font-medium  m-auto'>
+        <h2 className='text-2xl'>Order Summery</h2>
+        <p>Subtotal :  <span>{totalAmount}</span></p>
+       
+        <p>Shipping Charges : <span>0</span></p>
+       
         <p>GST:{tax = totalAmount * 18 / 100}</p>
         <p>Total : <span>{totalAmount = tax + totalAmount}</span></p>
-       <button onClick={handleBuyProduct}>Proceed to pay</button>
+       <button onClick={handleBuyProduct} className="bg-slate-200 text-green-900 font-sans font-bold">Proceed to pay</button>
+      </div>
       </div>
     </Fragment>
+    </div>
+
   )
 }
 

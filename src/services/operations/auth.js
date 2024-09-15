@@ -2,9 +2,14 @@ import { authEndpoints } from "../apis";
 import { setLoading, setToken } from "../../slices/authSlice"
 import { setUser } from "../../slices/profileSlice"
 import {apiConnector} from "../apiConnector";
+import { allUsersReducer } from "../../slices/orderSlice";
+import { singleUser } from "../../slices/userSlice";
+import toast from "react-hot-toast";
+
 const {
     SIGNUP_API,
-    LOGIN_API
+    LOGIN_API,
+    GET_ALL_USERS,
 } = authEndpoints;
 
 export const signup = (name,email,password,navigate)=>{
@@ -34,9 +39,9 @@ export function login(email,password,navigate){
         try{
             const response = await apiConnector("POST", LOGIN_API,{email,password});
             console.log("LOGIN API response............", response)
-
-
             if(!response.data.success){
+                toast.error("Invalid email or password");
+                alert("Invalid email or password")
                 throw new Error(response.data.message)
             }
 
@@ -114,6 +119,40 @@ export const resetPassword = (password,confirmPassword,token)=>{
 
         }catch(error){
             console.log("error occured in reset password api",error);
+        }
+    }
+}
+
+//get single user details(admin)
+export const getSingleUser = (token,id)=>{
+
+    return async(dispatch)=>{
+        try{
+            const response = await apiConnector("POST",`GET_SINGLE_USER + "/" + ${id}`,{token,id});
+
+            if(response.data.success === true){
+                alert("all users fetched successfully");
+                dispatch(allUsersReducer(response.data.users))
+            }
+
+        }catch(error){
+            console.log(" GET ALL USERS api",error);
+        }
+    }
+}
+export const getAllUsers = (token)=>{
+
+    return async(dispatch)=>{
+        try{
+            const response = await apiConnector("POST",GET_ALL_USERS,{token});
+
+            if(response.data.success === true){
+                alert("all users fetched successfully");
+                dispatch(singleUser(response.data.user))
+            }
+
+        }catch(error){
+            console.log(" GET single USERS api",error);
         }
     }
 }

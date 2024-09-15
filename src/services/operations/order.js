@@ -4,6 +4,7 @@ import { setMyOrders } from "../../slices/orderSlice";
 import {setSingleOrderDetails} from "../../slices/orderSlice";
 import {resetCart} from "../../slices/cartSlice";
 import {allOrdersReducer} from "../../slices/orderSlice"
+import toast from "react-hot-toast";
 const {
     CREATE_ORDER,
     MY_ORDER,
@@ -75,30 +76,36 @@ export const getAllOrders = async (token, dispatch) => {
         })
         console.log("admin orders", response);
         if (response.data.success === true) {
+            toast.success("order fetchted successfully");
             dispatch(allOrdersReducer(response.data.orders))
         }
         return true;
     } catch (error) {
         alert("Error in get all orders for admin api");
+        console.log("Errr in get all orders api(admin)",error)
         return false;
     }
 }
 
 //update order(admin)
-export const updateOrder = async (id,order, token,dispatch) => {
+export const updateOrder = async (id,token,myForm) => {
     try {
-        const response = await apiConnector("POST", UPDATE_ORDER, {
-            order,
-            token,
-            id,
-        })
-        console.log("order updation response is", response);
-        if (response.status === "success") {
-            alert("order is updated successfully");
+        const link = UPDATE_ORDER + "/" + `${id}`
 
+        const response = await apiConnector("POST", link,myForm,{
+            "content-Type":"multipart/form-data",
+            Authorisation:`Bearer ${token}`
+          })
+        console.log("order updation response is", response);
+        if (response.data.success === true) {
+            console.log("response from update order",response);
+            alert("order is updated successfully");
+            toast.success("order updated successfully");
+        
         }
     } catch (err) {
         alert("order is not updated successfully")
+        console.log(err);
     }
 }
 

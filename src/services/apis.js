@@ -21,7 +21,8 @@ export const authEndpoints={
   SIGNUP_API: BASE_URL + "/user/register",
   LOGIN_API: BASE_URL + "/user/login",
   RESETPASSTOKEN_API: BASE_URL + "/user/resetPassword",
-  RESETPASSWORD_API: BASE_URL + "/user/resetPassword"
+  RESETPASSWORD_API: BASE_URL + "/user/resetPassword",
+  GET_ALL_USERS:BASE_URL + "/user/admin/users"
 }
 
 export const orderEndPoints = {

@@ -11,14 +11,9 @@ import { Slider, Typography } from '@mui/material';
 
 const categories = [
   "Laptop",
-  "Footwear",
-  "Bottom",
-  "Tops",
-  "Attire",
+  "T-shirt",
   "Camera",
   "SmartPhones",
-  "phone",
-  "charger"
 ]
 
 const Products = () => {
@@ -29,7 +24,7 @@ const Products = () => {
   const [resultPerPage,setresultPerPage] = useState(0);
   const [currentPage,setCurrentPage] = useState(1);
   const [productsCount,setProductsCount] = useState(0);
-  const [price,setPrice] = useState([0,25000])
+  const [price,setPrice] = useState([0,250000])
   const [filterProductCount,setFilterProductCount] = useState(null);
   const[category,setCategory] = useState("");
   const dispatch = useDispatch();

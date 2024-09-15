@@ -47,9 +47,9 @@ const Header = () => {
                         <FiShoppingBag size={25} className='cursor-pointer' />
                         </Link>
 
-
+                        
                         {
-                            token === null && (<div><Link to={"/login"}>
+                            token === null && (<div className='flex flex-row flext-wrap items-center gap-4'><Link to={"/login"}>
                                 <div>Login</div>
                             </Link>
                                 <Link to={"signup"}>

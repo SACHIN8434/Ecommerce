@@ -25,15 +25,10 @@ const NewProduct = () => {
   const [images, setImages] = useState([]);
 
   const categories = [
-    "Laptop",
-    "Footwear",
-    "Bottom",
-    "Tops",
-    "Attire",
-    "Camera",
-    "SmartPhones",
-    "phone",
-    "charger",
+"Laptop",
+  "T-shirt",
+  "Camera",
+  "SmartPhones",
   ];
 
   // useEffect(()=>{
@@ -82,8 +77,9 @@ const NewProduct = () => {
 
   const createProductImagesChange = (e) => {
     const files = Array.from(e.target.files);
+    
     setImages(files);
-
+    console.log(files);
     setImagePreview([]);
 
     files.forEach((file) => {
