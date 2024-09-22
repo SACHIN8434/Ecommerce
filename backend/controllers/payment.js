@@ -18,7 +18,6 @@ exports.capturePayment = async (req,res)=>{
         })
     }
 
-    console.log("total products are",products);
 
     //->ye krne ki need nahi hain
 
@@ -56,7 +55,6 @@ exports.capturePayment = async (req,res)=>{
     try{
         //initiate the payment using razorpay
         const paymentResponse = await instance.orders.create(options);
-        console.log("ekdam sahi h capture payment",paymentResponse);
         res.status(200).json({
             success:true,
             data:paymentResponse,
@@ -72,14 +70,10 @@ exports.capturePayment = async (req,res)=>{
 }
 
 exports.verifyPayment = async(req,res)=>{
-    console.log("we are enter into verifyPayment api in backend");
-    console.log("req.body in verify payment is",req.body);
-
     const razorpay_order_id = req.body?.bodyData?.razorpay_order_id;
     const razorpay_payment_id = req.body?.bodyData?.razorpay_payment_id;
     const razorpay_signature = req.body?.bodyData?.razorpay_signature;
     const userId = req.user._id;
-    console.log("raz._order_id,raz._payment_id,raz._signature and userId is",razorpay_order_id,razorpay_payment_id,razorpay_signature,userId)
 
     if(!razorpay_order_id ||
         !razorpay_payment_id ||

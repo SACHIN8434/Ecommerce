@@ -28,6 +28,9 @@ import OrderList from "./components/Admin/OrderList";
 import ProcessOrder from "./components/Admin/ProcessOrder";
 import UsersList from "./components/Admin/UsersList";
 import AdminRoute from "./components/Admin/AdminRoute";
+import Footer from "./components/Footer/Footer";
+import Contact from "./components/Contact/Contact";
+import About from "./components/About/About";
 import { useSelector } from "react-redux";
 function App() {
   const {user} = useSelector((state)=>state.profile);
@@ -43,6 +46,8 @@ function App() {
         <Route path="/login" element={<LoginForm />}></Route>
         <Route path="/forgotpassoword" element={<ForgotPassword />}></Route>
         <Route path="/update-password/:id" element={<UpdatePassword />}></Route>
+        <Route path="/contact" element={<Contact/>}></Route>
+        <Route path="/about" element={<About/>}></Route>
 
         <Route path="/products/:keyword" element={<Products />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
@@ -79,6 +84,7 @@ function App() {
           }
         </Route>
       </Routes>
+      <Footer/>
     </div>
   );
 }

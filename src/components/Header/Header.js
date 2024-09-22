@@ -8,19 +8,23 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ProfileDropDown from "./ProfileDropDown";
-import logo from '../../images/logo.png'
+import logo from "../../images/logo.png";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
   const { token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   return (
-    <div className="z-10 mb-[100px]">
+    <div className="z-50 mb-[100px]">
       <div className="hidden md:block bg-slate-100 items-center shadow-md fixed top-0 left-0 right-0">
         <nav className="flex justify-evenly items-center">
           <div className="text-center text-2xl font-semibold">
             <a href="/" className="cursor-pointer">
-             <img src={logo} alt="E-commerece" className="md:w-[8vw] rounded-lg"/>
+              <img
+                src={logo}
+                alt="E-commerece"
+                className="md:w-[8vw] rounded-lg"
+              />
             </a>
           </div>
 
@@ -34,8 +38,12 @@ const Header = () => {
               </Link>
             </div>
             <div className="flex flex-row gap-x-2 cursor-pointer">
-              <li className="hover:text-red-500 cursor-pointer">Contact</li>
-              <li className="hover:text-red-500 cursor-pointer">About</li>
+              <Link to={"/contact"}>
+                <li className="hover:text-red-500 cursor-pointer">Contact</li>
+              </Link>
+              <Link to={"/about"}>
+                <li className="hover:text-red-500 cursor-pointer">About</li>
+              </Link>
             </div>
           </ul>
           <div className="flex flex-row gap-x-5 items-center justify-center">
@@ -50,10 +58,14 @@ const Header = () => {
             {token === null && (
               <div className="flex flex-row flext-wrap items-center gap-4">
                 <Link to={"/login"}>
-                  <div className="text-slate-300 bg-slate-700 font-sans font-medium border border-slate-700 rounded-md w-[5vw] h-[5vh] flex items-center justify-center shadow-2xl flex-wrap">Login</div>
+                  <div className="text-slate-300 bg-slate-700 font-sans font-medium border border-slate-700 rounded-md w-[5vw] h-[5vh] flex items-center justify-center shadow-2xl flex-wrap">
+                    Login
+                  </div>
                 </Link>
                 <Link to={"/signup"}>
-                  <div  className="text-slate-300 bg-slate-700 font-sans font-medium border border-slate-700 rounded-md w-[5vw] h-[5vh] flex items-center justify-center shadow-2xl flex-wrap">SignUp</div>
+                  <div className="text-slate-300 bg-slate-700 font-sans font-medium border border-slate-700 rounded-md w-[5vw] h-[5vh] flex items-center justify-center shadow-2xl flex-wrap">
+                    SignUp
+                  </div>
                 </Link>
               </div>
             )}
@@ -78,9 +90,13 @@ const Header = () => {
               )}
             </div>
             <div>
-            <a href="/" className="cursor-pointer">
-             <img src={logo} alt="E-commerece" className="w-[15vw] border border-white-100 rounded-lg"/>
-            </a>
+              <a href="/" className="cursor-pointer">
+                <img
+                  src={logo}
+                  alt="E-commerece"
+                  className="w-[15vw] border border-white-100 rounded-lg"
+                />
+              </a>
             </div>
           </div>
           <div className="flex flex-row gap-x-5 items-center justify-center">
@@ -95,10 +111,14 @@ const Header = () => {
             {token === null && (
               <div className="flex flex-row flext-wrap items-center gap-3">
                 <Link to={"/login"}>
-                  <div  className="text-slate-300 bg-slate-700 font-sans font-medium border border-slate-700 rounded-md w-[15vw] h-[5vh] flex items-center justify-center shadow-2xl flex-wrap text-sm">Login</div>
+                  <div className="text-slate-300 bg-slate-700 font-sans font-medium border border-slate-700 rounded-md w-[15vw] h-[5vh] flex items-center justify-center shadow-2xl flex-wrap text-sm">
+                    Login
+                  </div>
                 </Link>
                 <Link to={"signup"}>
-                  <div  className="text-slate-300 bg-slate-700 font-sans font-medium border border-slate-700 rounded-md w-[15vw] h-[5vh] flex items-center justify-center  flex-wrap text-sm">SignUp</div>
+                  <div className="text-slate-300 bg-slate-700 font-sans font-medium border border-slate-700 rounded-md w-[15vw] h-[5vh] flex items-center justify-center  flex-wrap text-sm">
+                    SignUp
+                  </div>
                 </Link>
               </div>
             )}
@@ -120,7 +140,9 @@ const Header = () => {
               </Link>{" "}
             </div>
             <div className="flex flex-col gap-y-2">
-              <li className="hover:text-red-500 cursor-pointer">Contact</li>
+              <Link to={"/contact"}>
+                <li className="hover:text-red-500 cursor-pointer">Contact</li>
+              </Link>{" "}
               <li className="hover:text-red-500 cursor-pointer">About</li>
             </div>
           </ul>

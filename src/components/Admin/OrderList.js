@@ -119,7 +119,7 @@ const OrderList = () => {
       {loading ? (
         <div>loading...</div>
       ) : (
-        <div>
+        <div className="-z-10">
           <div className="grid grid-cols-[1fr,5fr]">
             <Sidebar />
             <div>
@@ -129,7 +129,7 @@ const OrderList = () => {
                 columns={columns}
                 pageSize={10}
                 //  disableRowSelectionOnClick
-                className="productListTable"
+                className="productListTable -z-10"
                 autoHeight
               ></DataGrid>
             </div>

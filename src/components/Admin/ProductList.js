@@ -113,7 +113,7 @@ const ProductList = () => {
             columns={columns}
             pageSize={10}
             //  disableRowSelectionOnClick
-            className="productListTable"
+            className="productListTable -z-10"
             autoHeight
           ></DataGrid>
         </div>

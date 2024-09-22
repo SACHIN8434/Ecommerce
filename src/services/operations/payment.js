@@ -41,7 +41,7 @@ export async function buyProduct(
     console.log("updated order is",order);
     const toastId = toast.loading("Loading");
     try{
-        console.log("We are enter into the buyProduct function");
+        // console.log("We are enter into the buyProduct function");
         //loading the script ot razorpay sdk
         const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
 
@@ -69,8 +69,8 @@ export async function buyProduct(
         }
 
         toast.success("payment captured successfully");
-        console.log("order id is",orderResponse.data.data.id)
-        console.log("razorpay key is",process.env.RAZORPAY_KEY)
+        // console.log("order id is",orderResponse.data.data.id)
+        // console.log("razorpay key is",process.env.RAZORPAY_KEY)
 
 
         //opening the razorpay sdk;
@@ -88,7 +88,6 @@ export async function buyProduct(
             },
             handler:function(response){
                 verifyPayment({...response,products},token,navigate,dispatch,order)
-                console.log("we are successfully reached to the verify payment");
             },
         }
         const paymentObject = new window.Razorpay(options);
@@ -107,11 +106,9 @@ export async function buyProduct(
 }
 
 async function verifyPayment(bodyData,token,navigate,dispatch,order){
-    console.log("we are entre into the verify payment and body data is",bodyData);
     const toastId = toast.loading("verifying Payment...");
     try{
         const response = await apiConnector("POST", "http://localhost:4000/api/v1/payment/verifypayment",{bodyData,token})
-        console.log("response from verify payment api is",response);
 
         if(!response.data.success){
             throw new Error(response.data.message);

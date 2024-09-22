@@ -24,12 +24,7 @@ const NewProduct = () => {
   const [imagePreview, setImagePreview] = useState([]);
   const [images, setImages] = useState([]);
 
-  const categories = [
-"Laptop",
-  "T-shirt",
-  "Camera",
-  "SmartPhones",
-  ];
+  const categories = ["Laptop", "T-shirt", "Camera", "SmartPhones", "Shoes"];
 
   // useEffect(()=>{
   //   if(newProduct){
@@ -49,8 +44,8 @@ const NewProduct = () => {
     // formData.append("category",category);
     // formData.append("stock", stock);
     // formData.append("images",images);
-    console.log("images are",images);
-    
+    console.log("images are", images);
+
     // formData.append("images",images);
     const myForm = new FormData();
 
@@ -59,25 +54,27 @@ const NewProduct = () => {
     myForm.append("description", description);
     myForm.append("category", category);
     myForm.append("stock", stock);
-    console.log("images.length is",images.length);
+    console.log("images.length is", images.length);
 
     // images.forEach((image) => {
     //   myForm.append("images", image);
     // });
     // myForm.append("images",images);
-    for(let i = 0;i<images.length;i++){
+    for (let i = 0; i < images.length; i++) {
       console.log(images[i]);
-      myForm.append("files",images[i])
+      myForm.append("files", images[i]);
     }
-    
-   
-     console.log("this is the object which we are sendig to the backend",formData);
-    const res = dispatch(createProduct(myForm,token,dispatch));
+
+    console.log(
+      "this is the object which we are sendig to the backend",
+      formData
+    );
+    const res = dispatch(createProduct(myForm, token, dispatch));
   };
 
   const createProductImagesChange = (e) => {
     const files = Array.from(e.target.files);
-    
+
     setImages(files);
     console.log(files);
     setImagePreview([]);
@@ -197,7 +194,6 @@ const NewProduct = () => {
                 multiple
                 // value={images}
                 // value=""
-                
               />
             </div>
 

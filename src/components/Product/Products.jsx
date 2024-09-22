@@ -9,7 +9,7 @@ import Pagination from "react-js-pagination";
 import "./Products.css";
 import { Slider, Typography } from "@mui/material";
 
-const categories = ["Laptop", "T-shirt", "Camera", "SmartPhones"];
+const categories = ["Laptop", "T-shirt", "Camera", "SmartPhones","Shoes"];
 
 const Products = () => {
   const { keyword } = useParams();
@@ -59,7 +59,7 @@ const Products = () => {
       {/* <h1>Products</h1> */}
 
       <div className="flex mt-12">
-        <div className="md:w-[15vw] w-[30vw] ml-4  bg-slate-300 h-full text-slate-700 fixed left-5">
+        <div className="md:w-[15vw] w-[30vw] ml-4  bg-slate-300 text-slate-700 fixed left-5 h-[40vh]">
           <Typography className="text-3xl text-center font-sans font-medium">
             Price
           </Typography>

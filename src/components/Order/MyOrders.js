@@ -74,7 +74,7 @@ const Myorders = () => {
     useEffect(() =>{
         setLoading(true);
         const my = async()=>{
-            console.log("comiing");
+            // console.log("comiing");
             const res = await myOrders(dispatch,token);
             setLoading(false);
         }
@@ -86,13 +86,14 @@ const Myorders = () => {
    {
     loading ? (<div>loading...</div>):
     (
-        <div>
+        <div className='-z-10'>
             <DataGrid
                 rows={rows}
                 columns={columns}
                 pageSize={10}
                 // disableRowSelectionOnClick
                 autoHeight
+                className='-z-10'
             />
             <Typography>{user.name} orders</Typography>
         </div>

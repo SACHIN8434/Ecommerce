@@ -7,6 +7,8 @@ const fileUpload = require("express-fileupload");
 const dotenv = require("dotenv");
 // const errorHandler = require("./middleware/error")
 const cookieParser = require("cookie-parser")
+const PORT = process.env.PORT  || 4000;
+
 const cors = require("cors");
 
 
@@ -22,7 +24,6 @@ const connectDB = require("./config/database")
 dotenv.config();
 const paymentRoute = require("./routes/payments");
 
-console.log( "RAZORPAY KEY IS",process.env.RAZORPAY_KEY);
 //database connect
 connectDB();
 
@@ -71,6 +72,6 @@ app.get("/",(req,res)=>{
     })
 })
 
-app.listen(process.env.PORT,()=>{
-    console.log(`server is working on http://localhost:${process.env.PORT}`);
+app.listen(PORT,()=>{
+    console.log(`server is working on http://localhost:${PORT}`);
 })

@@ -103,7 +103,7 @@ const Dashboard = () => {
         <div className="grid grid-cols-[1fr,5fr]">
           <Sidebar />
 
-          <div className="h-[100vh]">
+          <div className="">
             <h1 className="flex justify-center items-center">Dashboard</h1>
             <div className="flex justify-center items-center flex-col bg-blue-500 text-white">
               <p>Total Amount</p>
