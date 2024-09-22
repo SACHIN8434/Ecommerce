@@ -14,18 +14,21 @@ const Product = ({ product }) => {
 
   const [loading, setLoading] = useState(false);
   return (
-    <div className="px-8 hover:scale-105 transition-all duration-75 delay-75 ease-out flex flex-col items-center text-center justify-center">
-      <Link to={`product/${product._id}`}>
+    <div className=" hover:scale-105 transition-all duration-75 delay-75 ease-out flex flex-col items-center text-center justify-center bg-slate-100">
+
+      <Link to={`/product/${product._id}`}>
+    <div className="flex items-center justify-center">
         <img
           src={product.images[0].url}
           alt={product.name}
-          className="object-contain w-[30vw] h-[50vh]"
+          className="object-contain lg:w-[15vw] lg:h-[30vh] text-center w-[30vw]"
         />
-        <p className="w-[30vw] text-center">{product.name}</p>
-        <div>
+    </div>
+        <p className="lg:w-[20vw] text-center">{product.name}</p>
+        <div className="flex items-center justify-center flex-col">
           <Rating {...options} />
           <span>({`${product.noOfReviews}Reviews`})</span>
-          <span>{`$${product.price} `}</span>
+          <span>{`Rs. ${product.price} `}</span>
         </div>
       </Link>
     </div>

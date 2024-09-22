@@ -8,6 +8,8 @@ import { TurnedIn } from "@mui/icons-material";
 import { toast } from "react-hot-toast";
 import { newProductReducer } from "../../slices/productSlice";
 import {oneProductDetails} from "../../slices/productSlice";
+const BASE_URL = process.env.REACT_APP_BASE_URL
+
 
 const {
   GET_PRODUCT_API,
@@ -22,17 +24,15 @@ const {
 export const getAllProducts = async (
   keyword = "",
   currentPage = 1,
-  price = [0, 25000],
+  price = [0, 250000],
   category
 ) => {
   let result = [];
   try {
-    console.log("keyword in getAllProducts", keyword);
-    console.log("price in getAllProducts", price[0]);
-    let link = `http://localhost:4000/api/v1/product/getAllProducts?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
+    let link = `${BASE_URL}/product/getAllProducts?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
 
     if (category) {
-      link = `http://localhost:4000/api/v1/product/getAllProducts?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}`;
+      link = `${BASE_URL}/product/getAllProducts?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}`;
     }
 
     const response = await apiConnector("GET", link);
@@ -83,12 +83,10 @@ export function getOneProductDetails(productId){
 export function newReview(obj, token) {
   return async (dispatch) => {
     try {
-      console.log("comming in new Review ");
       const response = await apiConnector("PUT", NEW_REVIEW, {
         token,
         obj,
       });
-      console.log("response from creating new review", response);
       if (response.data.success === true) {
         dispatch(newReviewReducer(response.data.message));
       }
@@ -100,10 +98,8 @@ export function newReview(obj, token) {
 
 //admin products
 export async function getAdminProducts(token, dispatch) {
-  console.log("coming to getAdmin Products",token);
   try {
     const response = await apiConnector("POST", ADMIN_PRODUCTS, { token });
-    console.log("response of getAdminProducts Api", response);
     dispatch(AdminProducts(response.data.products));
     return true;
   } catch (e) {
@@ -117,15 +113,12 @@ export async function getAdminProducts(token, dispatch) {
 export const createProduct = (formData,token) => {
   return async (dispatch) => {
     try {
-      console.log("productData is coming in create pr", formData);
-      console.log("token is",token);
 
       const response = await apiConnector("POST", CREATE_NEW_PRODUCT,formData,{
         "content-Type":"multipart/form-data",
         Authorisation:`Bearer ${token}`
       }
       );
-      console.log("response from createNewProduct Api", response);
 
       if (response.data.success === true) {
         toast.success("Product is Created Successfully");
@@ -167,7 +160,6 @@ export const updateProduct = async(id,token,formData)=>{
       Authorisation:`Bearer ${token}`
     })
 
-    console.log("response from update product",res);
     if(res.status.success === true){
       toast.success("Product updated successfully");
     }

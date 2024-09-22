@@ -42,18 +42,18 @@ const Shipping = () => {
       return;
     }
     dispatch(saveShippingInfo(formData));
-    navigate("/order/confirm");
+    navigate("/user/order/confirm");
     console.log(formData);
   };
   return (
     <div className="bg-slate-300">
 
     <Fragment>
-      <div className="text-center text-4xl font-sans font-medium mt-5">Shipping Details</div>
+      <div className="text-center text-4xl font-sans font-medium ">Shipping Details</div>
       <div className="mt-5">
       <CheckoutSteps activeStep={0}></CheckoutSteps>
       </div>
-      <div className="flex flex-col items-center justify-center w-[30vw] h-[70vh] m-auto bg-slate-700 mt-5 rounded-md">
+      <div className="flex flex-col items-center justify-center lg:w-[30vw] lg:h-[70vh] m-auto bg-slate-700 mt-5 rounded-md">
         <form
           onSubmit={submitHandler}
           className="flex items-center flex-col flex-wrap gap-y-10"

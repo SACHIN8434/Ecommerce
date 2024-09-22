@@ -55,7 +55,7 @@ const Myorders = () => {
             sortable:false,
             renderCell:(params)=>{
                 return(
-                    <Link to={`/orders/${params.api.getCellValue(params.id,"id")}`}>
+                    <Link to={`/user/orders/${params.api.getCellValue(params.id,"id")}`}>
                         <Launch></Launch>
                     </Link>
                 )

@@ -16,8 +16,6 @@ const cartSlice = createSlice({
     reducers: {
         addToCart: (state, action) => {
             const product = action.payload;
-            
-
             console.log("productData in cartSlice is product and quantity", product);
             const index = state.cart.findIndex((item) => item._id === product._id)
 
@@ -31,8 +29,7 @@ const cartSlice = createSlice({
             state.cart.push(product);
 
             state.totalItems++;
-            state.total = state.total + product.price;
-
+            state.total =state.total+product.price;;
             //now we have to update the localStorage
             localStorage.setItem("cart", JSON.stringify(state.cart))
 
@@ -49,6 +46,7 @@ const cartSlice = createSlice({
                 // If the course is found in the cart, remove it
                 state.totalItems--
                 state.total -= state.cart[index].price
+
                 state.cart.splice(index, 1)
                 // Update to localstorage
                 localStorage.setItem("cart", JSON.stringify(state.cart))

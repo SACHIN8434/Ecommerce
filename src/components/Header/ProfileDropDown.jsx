@@ -22,8 +22,7 @@ export default function ProfileDropDown() {
     <button className="relative" onClick={() => setOpen(true)}>
       <div className="flex items-center gap-x-1">
         <img
-          src={user?.image}
-          alt={`profile-${user?.firstName}`}
+          src={user.avatar.url} alt={user.name} 
           className="aspect-square w-[30px] rounded-full object-cover"
         />
         <AiOutlineCaretDown className="text-sm text-richblack-100" />
@@ -43,13 +42,13 @@ export default function ProfileDropDown() {
           </Link>)
         }
 
-        <Link to="/account" onClick={() => setOpen(false)}>
+        <Link to="/user/myprofile" onClick={() => setOpen(false)}>
             <div className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25">
               <VscDashboard className="text-lg" />
               Account
             </div>
           </Link>
-        <Link to="/orders" onClick={() => setOpen(false)}>
+        <Link to="/user/orders" onClick={() => setOpen(false)}>
             <div className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25">
               <VscDashboard className="text-lg" />
               Orders

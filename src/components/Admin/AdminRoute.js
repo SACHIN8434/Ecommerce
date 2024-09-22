@@ -2,11 +2,12 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Outlet,Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-const PrivateRoute = () => {
+const AdminRoute = () => {
 
     const navigate = useNavigate();
     const {token} = useSelector((state)=>state.auth);
-    if(token !== null){
+    const {user} = useSelector((state)=>state.profile);
+    if(token !== null && user.role === 'admin'){
         return <Outlet/>
     }else{
        return <Navigate to={"/login"}></Navigate>
@@ -17,4 +18,4 @@ const PrivateRoute = () => {
   )
 }
 
-export default PrivateRoute
+export default AdminRoute

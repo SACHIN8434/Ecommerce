@@ -61,8 +61,8 @@ const ConfirmOrder = () => {
   }
 
   return (
-    <div className='bg-slate-300 w-full h-[100vh] mt-5 flex flex-col flex-wrap justify-center'>
-    <div className='text-center text-3xl mt-5 font-sans font-medium'>Shippping Details</div>
+    <div className='bg-slate-300 w-full mt-5 flex flex-col flex-wrap justify-center'>
+    <div className='text-center text-3xl font-sans font-medium'>Shippping Details</div>
     <Fragment>
     <div className='mt-5'>
       <CheckoutSteps activeStep={1}></CheckoutSteps>
@@ -86,7 +86,7 @@ const ConfirmOrder = () => {
                 <>
                   <div className="flex flex-row gap-x-5">
 
-                    <img src={item.images[0].url} alt="product Image" className="h-[100px]" />
+                    <img src={item.images[0].url} alt="product Image" className="h-[15vh] w-[8vw]" />
                     <span>{item.name}</span>
 
                     <p>{item.quantity} X {item.price} = {Number(item.price * item.quantity)}</p>

@@ -12,11 +12,12 @@ const {
     GET_ALL_USERS,
 } = authEndpoints;
 
-export const signup = (name,email,password,navigate)=>{
+export const signup = (firstName,lastName,email,password,navigate)=>{
     return async(dispatch)=>{
         try{
             const response = await apiConnector("POST",SIGNUP_API,{
-                name,
+                firstName,
+                lastName,
                 email,
                 password,
             })
@@ -46,15 +47,11 @@ export function login(email,password,navigate){
             }
 
             console.log("LOGIN API response............", response.data.message)
-
             dispatch(setToken(response.data.token));
             dispatch(setUser({ ...response.data.user }))
-
             localStorage.setItem("token",JSON.stringify(response.data.token));
             localStorage.setItem("user", JSON.stringify(response.data.user))
-
-            navigate("/account");
-
+            navigate("/user/myprofile");
         }catch(error){
             console.log("LOGIN API ERROR............", error)
             dispatch(setToken(null))
@@ -87,7 +84,7 @@ export function updateProfile(name,email,navigate,token){
             console.log("updated user response",response);
             dispatch(setUser(response.data.user));
             localStorage.setItem("user", JSON.stringify(response.data.user))
-            navigate("/account");
+            navigate("/user/myprofile");
         }catch(error){
             console.log("update user api error............", error)
         }

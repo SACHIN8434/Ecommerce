@@ -26,7 +26,7 @@ export const createOrder = async (order, token, navigate,dispatch) => {
             dispatch(resetCart);
 
         }
-        navigate("/success");
+        navigate("/user/success");
     } catch (err) {
         alert("order is not created successfully")
     }

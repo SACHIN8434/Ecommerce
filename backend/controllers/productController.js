@@ -19,17 +19,16 @@ exports.createProduct = async (req, res) => {
         process.env.FOLDER_NAME
       );
 
-      
       imagesLinks.push({
         public_id: result.public_id,
         url: result.secure_url,
       });
     }
 
-    console.log("imagesLinks are",imagesLinks);
+    console.log("imagesLinks are", imagesLinks);
     req.body.images = imagesLinks;
     req.body.user = req.user.id;
-    console.log("req.body",req.body);
+    console.log("req.body", req.body);
     const product = await Product.create(req.body);
 
     console.log("req.files are", req.files.files);
@@ -59,11 +58,11 @@ exports.getAllProducts = async (req, res, next) => {
       .filter();
 
     let products = await apiFeature.query;
-
     let filteredProductsCount = products.length;
-
     apiFeature.pagination(resultPerPage);
-    //  products = await apiFeature.query;
+    // products = await apiFeature.query;
+
+    
 
     res.status(200).json({
       success: true,

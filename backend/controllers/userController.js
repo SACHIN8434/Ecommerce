@@ -7,21 +7,21 @@ const crypto = require("crypto");
 //Register a User
 exports.registerUser = async(req,res,next)=>{
     try{
-        const {name,email,password} = req.body;
-        if(!name || !email || !password){
+        const {firstName,lastName,email,password} = req.body;
+        if(!firstName || !lastName || !email || !password){
             return res.status(403).json({
                 success:false,
                 message:"All fields of a user is required",
             })
         }
-
+        const name = firstName + ' ' + lastName;
         const user = await User.create({
             name,
             email,
             password,
             avatar:{
                 public_id:"This is a sample id",
-                url:"profile pic Url"
+                url:`https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
             }
         })
 

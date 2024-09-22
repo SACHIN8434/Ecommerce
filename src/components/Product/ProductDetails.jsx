@@ -144,7 +144,7 @@ const ProductDetails = () => {
                 </div>
 
                 <div className="flex flex-col items-center justify-center gap-y-3">
-                  <h1 className="text-4xl">{`$${productData?.price} `}</h1>
+                  <h1 className="text-4xl">{`Rs. ${productData?.price} `}</h1>
                   <div className="flex md:flex-row justify-center items-center md:gap-x-4 flex-col gap-y-3">
                     <div className="flex flex-row justify-center items-center ">
                       <button className="h-8 bg-slate-300 text-slate-800 w-10  text-4xl  text-center" onClick={decreaseQuantity}>-</button>

@@ -14,15 +14,15 @@ const LoginForm = () => {
   const location = useLocation();
 
   const { token } = useSelector((state) => state.auth);
-  const redirect = location.search ? location.search.split("=")[1] : "/account";
+  const redirect = location.search ? location.search.split("=")[1] : "/myprofile";
 
-  useEffect(() => {
-    if (token) {
-      console.log("redirect is ", redirect);
-      navigate("/" + redirect);
-      console.log(location);
-    }
-  }, [location, redirect, dispatch, token]);
+  // useEffect(() => {
+  //   if (token) {
+  //     console.log("redirect is ", redirect);
+  //     navigate(+ redirect);
+  //     console.log(location);
+  //   }
+  // }, [location, redirect, dispatch, token]);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -42,10 +42,10 @@ const LoginForm = () => {
   };
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <div className="w-full h-[100vh] flex items-center justify-center flex-col bg-slate-300">
+    <div className="w-full h-[100vh] flex items-center justify-center flex-col bg-slate-300 m-auto">
       <form
         onSubmit={handleOnSubmit}
-        className="flex items-center flex-col justify-center gap-10 bg-blue-500 border-blue-400 relative w-[35vw] h-[55vh] rounded-md shadow-2xl"
+        className="flex items-center flex-col justify-center gap-10 bg-blue-500 border-blue-400 relative lg:w-[35vw] lg:h-[55vh] rounded-md shadow-2xl"
       >
         <label>
           <p className="mb-1 text-[1rem] leading-[1.375rem] text-richblack-9 font-semibold">
@@ -62,7 +62,7 @@ const LoginForm = () => {
               boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
               border: "1px solid black",
             }}
-            className="w-[30vw] rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5 m-auto"
+            className="lg:w-[30vw] rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5 m-auto"
           />
         </label>
         <label className="relative">
@@ -79,7 +79,7 @@ const LoginForm = () => {
             style={{
               boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
             }}
-            className="w-[30vw] rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5"
+            className="lg:w-[30vw] rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5"
           />
           <span
             onClick={() => setShowPassword((prev) => !prev)}

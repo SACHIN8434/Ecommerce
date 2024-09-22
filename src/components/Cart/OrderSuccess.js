@@ -3,9 +3,9 @@ import {Link} from "react-router-dom"
 const OrderSuccess = () => {
   return (
     <>
-    <div class="flex justify-center items-center">
-    <h1>Order is created</h1>
-    <Link to={"/orders"}>View orders</Link>
+    <div class="flex justify-center items-center bg-slate-300">
+    <h1 className='text-4xl text-slate-800'>Orderrder is created</h1>
+    <Link to={"/user/orders"}>View orders</Link>
     </div>
     </>
     

@@ -39,11 +39,9 @@ const Home = () => {
   return (
 
     <Fragment>
-
-      <div>Home</div>
       <div>
         {
-          loading ? (<div>Loading...</div>) : (<div className='flex flex-row flex-wrap justify-center gap-12 w-[80vw] mx-auto'>
+          loading ? (<div>Loading...</div>) : (<div className='flex flex-row flex-wrap justify-center lg:w-[90vw] mx-auto lg:gap-8 gap-5 overflow-hidden'>
             {
               products?.map((product, index) => (
                 <Product product={product} key={index} />
