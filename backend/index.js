@@ -20,8 +20,8 @@ const orderRoute = require("./routes/orderRoute");
 
 
 //importing database
-const connectDB = require("./config/database")
 dotenv.config();
+const connectDB = require("./config/database")
 const paymentRoute = require("./routes/payments");
 
 //database connect
